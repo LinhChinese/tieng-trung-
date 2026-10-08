@@ -1,0 +1,2463 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Mưa Từ Vựng HSK</title>
+<style>
+:root{
+  --bg1:#070b1a;--bg2:#0d1630;--card:#122044;--card2:#0f1a38;--line:#27407a;
+  --text:#e8eefc;--muted:#8fa0c8;--cyan:#5fd4ff;--green:#4dffa6;--yellow:#ffd84a;--red:#ff5d6c;--pink:#ff8ad8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg1);color:var(--text);
+  font-family:"Segoe UI","Noto Sans","PingFang SC","Microsoft YaHei",system-ui,sans-serif;overflow:hidden}
+body{background:radial-gradient(1200px 700px at 20% -10%,#16275a 0%,transparent 60%),radial-gradient(900px 600px at 100% 110%,#1b1450 0%,transparent 55%),var(--bg1)}
+button{font:inherit;color:inherit;cursor:pointer;border:0}
+.screen{position:absolute;inset:0;display:none;overflow:auto}
+.screen.active{display:block}
+
+/* ---------- START ---------- */
+#start{padding:20px 16px 40px}
+.wrap{max-width:1040px;margin:0 auto}
+.brand{text-align:center;margin:10px 0 22px}
+.brand .zh{font-size:46px;font-weight:800;letter-spacing:.12em;color:var(--cyan);text-shadow:0 0 24px rgba(95,212,255,.55)}
+.brand h1{font-size:28px;margin-top:2px;font-weight:700}
+.brand p{color:var(--muted);margin-top:6px;font-size:14px}
+.grid{display:grid;grid-template-columns:1fr 1.15fr;gap:18px}
+@media(max-width:820px){.grid{grid-template-columns:1fr}}
+.panel{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:18px;padding:20px}
+.panel h2{font-size:15px;color:var(--cyan);letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
+label.f{display:block;font-size:13px;color:var(--muted);margin:0 0 6px}
+#nameInput{width:100%;padding:13px 14px;border-radius:12px;border:1.5px solid var(--line);background:#0a1330;color:var(--text);font-size:17px;outline:0}
+#nameInput:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(95,212,255,.18)}
+.levels{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:6px 0 16px}
+@media(max-width:480px){.lv b{font-size:17px!important}}
+.diffs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 18px}
+.df{background:#0a1330;border:1.5px solid var(--line);border-radius:14px;padding:12px 8px;text-align:center;transition:.15s}
+.df b{display:block;font-size:18px}
+.df span{font-size:12px;color:var(--muted)}
+.df:hover{border-color:var(--cyan)}
+.df.sel{border-color:var(--yellow);background:#1a2250;box-shadow:0 0 0 3px rgba(255,216,74,.15)}
+.df[data-d="hell"].sel{border-color:var(--red);background:#3a1424;box-shadow:0 0 0 3px rgba(255,93,108,.2)}
+.df[data-d="hell"].sel b{color:var(--red)}
+.tag{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;background:#16244d;color:var(--muted);white-space:nowrap}
+.tag.hell{background:#3a1424;color:var(--red);font-weight:700}
+#lbBody,#endLb{overflow-x:auto}
+.lv{background:#0a1330;border:1.5px solid var(--line);border-radius:14px;padding:14px 8px;text-align:center;transition:.15s}
+.lv b{display:block;font-size:22px}
+.lv span{font-size:12px;color:var(--muted)}
+.lv:hover{border-color:var(--cyan)}
+.lv.sel{border-color:var(--yellow);background:#1a2250;box-shadow:0 0 0 3px rgba(255,216,74,.15)}
+.lv.sel b{color:var(--yellow)}
+.go{width:100%;padding:15px;border-radius:14px;font-size:18px;font-weight:700;background:linear-gradient(90deg,#2bb7ff,#6b7bff);color:#fff;box-shadow:0 8px 24px rgba(60,120,255,.35)}
+.go:hover{filter:brightness(1.08)}
+.go:disabled{opacity:.45;cursor:not-allowed}
+.err{color:var(--red);font-size:13px;min-height:18px;margin:6px 0 4px}
+.howto{margin-top:16px;font-size:13px;color:var(--muted);line-height:1.6}
+.howto b{color:var(--text)}
+.howto .warn{color:var(--yellow)}
+
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.tab{padding:7px 12px;border-radius:999px;background:#0a1330;border:1px solid var(--line);font-size:13px;color:var(--muted)}
+.tab.on{background:var(--cyan);color:#06142e;border-color:var(--cyan);font-weight:700}
+table.lb{width:100%;border-collapse:collapse;font-size:14px}
+table.lb th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:left;padding:4px 8px;font-weight:600}
+table.lb td{padding:9px 8px;border-top:1px solid rgba(39,64,122,.55)}
+table.lb td.r{text-align:right;font-variant-numeric:tabular-nums}
+table.lb tr.me td{background:rgba(255,216,74,.1)}
+.medal{display:inline-block;width:26px;text-align:center;font-weight:800}
+.rk1{color:#ffd84a}.rk2{color:#d5dcec}.rk3{color:#e8a36b}
+.lbname{font-weight:600}
+.chip{font-size:11px;color:var(--muted);margin-left:6px}
+.lbstat{font-size:12px;color:var(--muted);margin:-2px 0 10px}
+.empty{color:var(--muted);text-align:center;padding:26px 0;font-size:14px}
+.lbtools{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.mini{padding:7px 11px;border-radius:9px;background:#0a1330;border:1px solid var(--line);font-size:12px;color:var(--muted)}
+.mini:hover{color:var(--text);border-color:var(--cyan)}
+
+/* ---------- GAME ---------- */
+#game{overflow:hidden;background:linear-gradient(180deg,#05081a 0%,#0a1230 60%,#101a45 100%)}
+#rain{position:absolute;inset:0;width:100%;height:100%}
+.hud{position:absolute;left:0;right:0;top:0;z-index:5;display:flex;align-items:center;gap:14px;padding:10px 14px;background:linear-gradient(180deg,rgba(5,8,26,.92),rgba(5,8,26,0))}
+.hud .sc{font-size:26px;font-weight:800;color:#fff;min-width:96px;font-variant-numeric:tabular-nums}
+.hud .sc small{display:block;font-size:10px;color:var(--muted);letter-spacing:.1em;font-weight:600}
+.hud .mid{flex:1;text-align:center;font-size:14px;color:var(--muted);min-width:0}
+.hud .mid .mk{color:var(--text);font-weight:700}
+.hud .mid .last{display:block;margin-top:2px;color:var(--green);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:20px}
+.hud .hearts{font-size:19px;letter-spacing:2px;white-space:nowrap}
+.hud .hearts .off{opacity:.2;filter:grayscale(1)}
+.hud .who{font-size:12px;color:var(--muted);text-align:right;line-height:1.3}
+.hud .who b{color:var(--yellow);font-size:14px}
+.ibtn{width:36px;height:36px;border-radius:10px;background:rgba(18,32,68,.85);border:1px solid var(--line);font-size:16px}
+.ibtn:hover{border-color:var(--cyan)}
+#field{position:absolute;left:0;right:0;top:64px;bottom:64px;overflow:hidden}
+.ground{position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,transparent,var(--red),transparent);opacity:.7}
+.card{position:absolute;left:0;top:0;padding:7px 14px 8px;border-radius:14px;background:rgba(14,30,72,.94);border:2px solid #3a6fd6;text-align:center;will-change:transform;box-shadow:0 6px 18px rgba(0,0,0,.45);white-space:nowrap}
+.card .vi{font-size:17px;font-weight:700;line-height:1.25}
+.card .py{margin-top:3px;font-size:21px;font-weight:700;font-family:"Consolas","SFMono-Regular",monospace;letter-spacing:.04em;display:flex;justify-content:center;gap:12px}
+.card .syl{display:inline-flex}
+.card .ch{display:inline-block;min-width:.62em;text-align:center;color:#5c78b8;border-bottom:2.5px solid #4766ad;margin:0 1px;line-height:1.15}
+.card .ch.hint{color:var(--cyan);border-bottom-color:var(--cyan);opacity:.85}
+.card .ch.on{color:var(--yellow);border-bottom-color:var(--yellow)}
+.card.locked{border-color:var(--yellow);box-shadow:0 0 0 3px rgba(255,216,74,.22),0 6px 18px rgba(0,0,0,.45)}
+.card.near{border-color:var(--red)}
+.card.shake{animation:shake .25s}
+@keyframes shake{25%{margin-left:-6px}75%{margin-left:6px}}
+.pop{position:absolute;left:0;top:0;pointer-events:none;font-weight:800;white-space:nowrap;text-shadow:0 0 12px currentColor;animation:pop 1.3s ease-out forwards}
+.pop.ok{color:var(--green);font-size:24px}
+.pop.bad{color:var(--red);font-size:20px}
+@keyframes pop{0%{opacity:0;scale:.6}12%{opacity:1;scale:1.1}25%{scale:1}80%{opacity:1}100%{opacity:0;translate:0 -34px}}
+.bar{position:absolute;left:0;right:0;bottom:0;z-index:5;height:64px;display:flex;align-items:center;justify-content:center;gap:12px;padding:8px 14px;background:linear-gradient(0deg,rgba(5,8,26,.95),rgba(5,8,26,0))}
+.typed{min-width:220px;max-width:70%;text-align:center;padding:9px 18px;border-radius:12px;background:rgba(10,19,48,.9);border:1.5px solid var(--line);font-family:Consolas,monospace;font-size:21px;letter-spacing:.08em;color:var(--yellow);min-height:42px}
+.typed.ph{color:var(--muted);font-family:inherit;font-size:14px;letter-spacing:0;line-height:22px}
+.typed.bad{border-color:var(--red);animation:shake .25s}
+.combo{font-weight:800;color:var(--pink);min-width:90px;font-size:18px;text-align:left}
+.prog{position:absolute;left:0;top:0;height:3px;background:linear-gradient(90deg,var(--cyan),var(--green));z-index:6;width:0;transition:width .25s}
+#hiddenIn{position:absolute;left:-9999px;top:auto;opacity:0;width:1px;height:1px}
+.overlay{position:absolute;inset:0;z-index:20;display:none;align-items:center;justify-content:center;flex-direction:column;background:rgba(4,7,20,.78);backdrop-filter:blur(3px);text-align:center;padding:20px}
+.overlay.show{display:flex}
+.overlay h3{font-size:30px;margin-bottom:8px}
+.overlay p{color:var(--muted);margin-bottom:18px}
+.overlay .btn{padding:12px 26px;border-radius:12px;background:linear-gradient(90deg,#2bb7ff,#6b7bff);font-weight:700;font-size:16px;margin:4px}
+.overlay .btn.alt{background:#0a1330;border:1px solid var(--line)}
+#count{font-size:120px;font-weight:900;color:var(--cyan);text-shadow:0 0 40px rgba(95,212,255,.7)}
+
+/* ---------- END ---------- */
+#end{padding:20px 16px 40px}
+.res{text-align:center}
+.res .big{font-size:60px;font-weight:900;color:var(--yellow);text-shadow:0 0 30px rgba(255,216,74,.4);font-variant-numeric:tabular-nums}
+.res .rank{font-size:18px;margin:4px 0 14px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+@media(max-width:560px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{background:#0a1330;border:1px solid var(--line);border-radius:12px;padding:10px}
+.stat b{display:block;font-size:22px}
+.stat span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.review{max-height:260px;overflow:auto;text-align:left;margin-top:8px}
+.rv{display:flex;gap:10px;align-items:baseline;padding:7px 4px;border-top:1px solid rgba(39,64,122,.55)}
+.rv .h{font-size:22px;min-width:84px;color:var(--green)}
+.rv .p{color:var(--cyan);min-width:110px}
+.rv .m{color:var(--muted);font-size:14px}
+.row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.row .go{width:auto;padding:13px 24px;font-size:16px}
+.row .go.alt{background:#0a1330;border:1px solid var(--line);box-shadow:none}
+</style>
+</head>
+<body>
+
+<!-- ============ START ============ -->
+<section id="start" class="screen active">
+ <div class="wrap">
+  <div class="brand">
+    <div class="zh">词语雨</div>
+    <h1>Mưa Từ Vựng HSK</h1>
+    <p>Đọc nghĩa đang rơi, nhớ ra từ và gõ pinyin để bắn hạ!</p>
+  </div>
+  <div class="grid">
+    <div class="panel">
+      <h2>Vào chơi</h2>
+      <label class="f" for="nameInput">Tên của em</label>
+      <input id="nameInput" maxlength="20" placeholder="Ví dụ: Minh Anh – 7A" autocomplete="off">
+      <div style="height:16px"></div>
+      <label class="f">Chọn cấp độ HSK</label>
+      <div class="levels" id="levels">
+        <button class="lv" data-lv="1"><b>HSK 1</b><span id="n1"></span></button>
+        <button class="lv" data-lv="2"><b>HSK 2</b><span id="n2"></span></button>
+        <button class="lv" data-lv="3"><b>HSK 3</b><span id="n3"></span></button>
+        <button class="lv" data-lv="4"><b>HSK 4</b><span id="n4"></span></button>
+      </div>
+      <label class="f">Độ khó</label>
+      <div class="diffs" id="diffs">
+        <button class="df" data-d="easy"><b>Dễ</b><span>tốc độ vừa phải</span></button>
+        <button class="df" data-d="hell"><b>Khó</b><span>rơi nhanh hơn · điểm ×2</span></button>
+      </div>
+      <div class="err" id="err"></div>
+      <button class="go" id="goBtn">▶ Bắt đầu</button>
+      <div class="howto">
+        <b>Cách chơi:</b> mỗi ván có <b>3 màn × 30 từ</b>, mỗi màn 5 mạng ❤ (qua màn được hồi đủ mạng). Chữ rơi <b>nhanh dần</b> theo từng chặng và theo từng màn. Chọn <b>Dễ</b> hoặc <b>Khó</b> (chữ rơi nhanh hơn, điểm <b>×2</b>). Mỗi từ có <b>chữ cái đầu gợi ý</b> (màu xanh), em vẫn gõ đủ cả từ. Gõ pinyin của từ đang rơi (không cần gõ dấu thanh, <b>ü gõ là v hoặc u</b>). Từ chạm đáy sẽ mất 1 mạng. Gõ nhanh, đúng liên tục để được thêm điểm combo.<br>
+        <b>Phím:</b> <b>Backspace</b> xoá chữ vừa gõ · <b>Esc</b> bỏ chọn từ.<br>
+        <span class="warn">⚠ Nhớ tắt bộ gõ tiếng Việt (Unikey/Telex) khi chơi.</span>
+      </div>
+    </div>
+    <div class="panel">
+      <h2>🏆 Bảng xếp hạng</h2>
+      <div class="tabs" id="lbTabs"></div>
+      <div class="lbstat" id="lbStat"></div>
+      <div id="lbBody"></div>
+      <div class="lbtools">
+        <button class="mini" id="btnExport">⬇ Xuất dữ liệu</button>
+        <button class="mini" id="btnImport">⬆ Nhập &amp; gộp</button>
+        <button class="mini" id="btnClear">🗑 Xoá dữ liệu máy này</button>
+        <input type="file" id="fileImport" accept=".json,application/json" hidden>
+      </div>
+    </div>
+  </div>
+ </div>
+</section>
+
+<!-- ============ GAME ============ -->
+<section id="game" class="screen">
+  <canvas id="rain"></canvas>
+  <div class="prog" id="prog"></div>
+  <div class="hud">
+    <div class="sc"><small>ĐIỂM</small><span id="score">0</span></div>
+    <div class="mid"><span class="mk">Màn <span id="stg">1</span>/3 · Mốc <span id="mk">0</span>/30 · <span id="lvTag"></span></span><span class="last" id="last"></span></div>
+    <div class="hearts" id="hearts"></div>
+    <div class="who"><b id="who"></b><br><span id="whoLv"></span></div>
+    <button class="ibtn" id="btnPause" title="Tạm dừng">⏸</button>
+    <button class="ibtn" id="btnMute" title="Âm thanh">🔊</button>
+  </div>
+  <div id="field"><div class="ground"></div></div>
+  <div class="bar">
+    <div class="combo" id="combo"></div>
+    <div class="typed ph" id="typed">Gõ pinyin của từ đang rơi…</div>
+    <div class="combo" style="text-align:right" id="acc"></div>
+  </div>
+  <input id="hiddenIn" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+  <div class="overlay" id="ovCount"><div id="count">3</div></div>
+  <div class="overlay" id="ovStage"><h3 id="stTitle"></h3><p id="stText"></p><button class="btn" id="btnNext">Màn tiếp theo ▶</button></div>
+  <div class="overlay" id="ovPause">
+    <h3>⏸ Tạm dừng</h3><p>Game đang dừng.</p>
+    <div><button class="btn" id="btnResume">Tiếp tục</button><button class="btn alt" id="btnQuit">Thoát ván</button></div>
+  </div>
+</section>
+
+<!-- ============ END ============ -->
+<section id="end" class="screen">
+ <div class="wrap" style="max-width:820px">
+  <div class="panel res">
+    <div id="endTitle" style="font-size:20px;color:var(--cyan);font-weight:700"></div>
+    <div class="big" id="endScore">0</div>
+    <div class="rank" id="endRank"></div>
+    <div class="stats">
+      <div class="stat"><b id="sCorrect">0</b><span>Từ đúng</span></div>
+      <div class="stat"><b id="sAcc">0%</b><span>Chính xác</span></div>
+      <div class="stat"><b id="sCombo">0</b><span>Combo cao nhất</span></div>
+      <div class="stat"><b id="sTime">0s</b><span>Thời gian</span></div>
+    </div>
+    <div id="reviewWrap" style="display:none;text-align:left">
+      <h2 style="font-size:14px;color:var(--red);margin:10px 0 4px">Từ cần ôn lại</h2>
+      <div class="review" id="review"></div>
+    </div>
+    <div class="row">
+      <button class="go" id="btnAgain">↻ Chơi lại</button>
+      <button class="go alt" id="btnHome">🏆 Bảng xếp hạng / đổi cấp</button>
+    </div>
+  </div>
+  <div class="panel" style="margin-top:16px">
+    <h2 id="endLbTitle">Bảng xếp hạng</h2>
+    <div id="endLb"></div>
+  </div>
+ </div>
+</section>
+
+<script>
+"use strict";
+/* ============ BẢNG XẾP HẠNG CHUNG (ONLINE) ============
+   Dán địa chỉ Firebase Realtime Database vào dòng dưới để cả lớp dùng chung 1 bảng xếp hạng,
+   điểm tự gửi lên ngay khi học sinh chơi xong. Ví dụ:
+   const ONLINE_DB = "https://ten-du-an-default-rtdb.asia-southeast1.firebasedatabase.app";
+   Để trống "" thì điểm chỉ lưu trên máy đang chơi. */
+const ONLINE_DB = "https://mua-tieng-trung-default-rtdb.asia-southeast1.firebasedatabase.app";
+/* ================= DỮ LIỆU TỪ VỰNG (汉字|pinyin|nghĩa) ================= */
+const RAW = {
+1: `爱|ài|yêu
+八|bā|tám
+爸爸|bàba|bố
+杯子|bēizi|cái cốc
+北京|Běijīng|Bắc Kinh
+本|běn|quyển (lượng từ)
+不客气|bú kèqi|đừng khách sáo
+不|bù|không
+菜|cài|món ăn, rau
+茶|chá|trà
+吃|chī|ăn
+出租车|chūzūchē|taxi
+打电话|dǎ diànhuà|gọi điện thoại
+大|dà|to, lớn
+的|de|của
+点|diǎn|giờ; chút
+电脑|diànnǎo|máy tính
+电视|diànshì|ti vi
+电影|diànyǐng|phim
+东西|dōngxi|đồ vật
+都|dōu|đều
+读|dú|đọc
+对不起|duìbuqǐ|xin lỗi
+多|duō|nhiều
+多少|duōshao|bao nhiêu
+儿子|érzi|con trai
+二|èr|hai
+饭馆|fànguǎn|nhà hàng
+飞机|fēijī|máy bay
+分钟|fēnzhōng|phút
+高兴|gāoxìng|vui mừng
+个|gè|cái (lượng từ)
+工作|gōngzuò|công việc
+狗|gǒu|con chó
+汉语|Hànyǔ|tiếng Hán
+好|hǎo|tốt
+号|hào|ngày, số
+喝|hē|uống
+和|hé|và
+很|hěn|rất
+后面|hòumiàn|phía sau
+回|huí|về
+会|huì|biết, sẽ
+几|jǐ|mấy
+家|jiā|nhà
+叫|jiào|gọi, tên là
+今天|jīntiān|hôm nay
+九|jiǔ|chín
+开|kāi|mở, lái
+看|kàn|xem, nhìn
+看见|kànjiàn|nhìn thấy
+块|kuài|đồng (tiền)
+来|lái|đến
+老师|lǎoshī|giáo viên
+了|le|rồi
+冷|lěng|lạnh
+里|lǐ|bên trong
+六|liù|sáu
+妈妈|māma|mẹ
+吗|ma|không (nghi vấn)
+买|mǎi|mua
+猫|māo|con mèo
+没关系|méi guānxi|không sao
+没有|méiyǒu|không có
+米饭|mǐfàn|cơm
+明天|míngtiān|ngày mai
+名字|míngzi|tên
+哪|nǎ|nào
+哪儿|nǎr|ở đâu
+那|nà|kia, đó
+呢|ne|nhỉ, thế
+能|néng|có thể
+你|nǐ|bạn
+年|nián|năm
+女儿|nǚ'ér|con gái
+朋友|péngyou|bạn bè
+漂亮|piàoliang|xinh đẹp
+苹果|píngguǒ|quả táo
+七|qī|bảy
+前面|qiánmiàn|phía trước
+钱|qián|tiền
+请|qǐng|mời, xin
+去|qù|đi
+热|rè|nóng
+人|rén|người
+认识|rènshi|quen biết
+三|sān|ba
+商店|shāngdiàn|cửa hàng
+上|shàng|trên
+上午|shàngwǔ|buổi sáng
+少|shǎo|ít
+谁|shéi|ai
+什么|shénme|cái gì
+十|shí|mười
+时候|shíhou|lúc, khi
+是|shì|là
+书|shū|sách
+水|shuǐ|nước
+水果|shuǐguǒ|trái cây
+睡觉|shuìjiào|ngủ
+说|shuō|nói
+四|sì|bốn
+岁|suì|tuổi
+他|tā|anh ấy
+她|tā|cô ấy
+太|tài|quá
+天气|tiānqì|thời tiết
+听|tīng|nghe
+同学|tóngxué|bạn học
+喂|wèi|alo
+我|wǒ|tôi
+我们|wǒmen|chúng tôi
+五|wǔ|năm
+喜欢|xǐhuan|thích
+下|xià|dưới
+下午|xiàwǔ|buổi chiều
+下雨|xiàyǔ|trời mưa
+先生|xiānsheng|ông, ngài
+现在|xiànzài|bây giờ
+想|xiǎng|muốn, nhớ
+小|xiǎo|nhỏ
+小姐|xiǎojiě|cô, tiểu thư
+些|xiē|một vài
+写|xiě|viết
+谢谢|xièxie|cảm ơn
+星期|xīngqī|tuần
+学生|xuésheng|học sinh
+学习|xuéxí|học tập
+学校|xuéxiào|trường học
+一|yī|một
+一点儿|yìdiǎnr|một chút
+衣服|yīfu|quần áo
+医生|yīshēng|bác sĩ
+医院|yīyuàn|bệnh viện
+椅子|yǐzi|cái ghế
+有|yǒu|có
+月|yuè|tháng
+再见|zàijiàn|tạm biệt
+在|zài|ở, đang
+怎么|zěnme|thế nào, sao
+怎么样|zěnmeyàng|như thế nào
+这|zhè|này
+中国|Zhōngguó|Trung Quốc
+中午|zhōngwǔ|buổi trưa
+住|zhù|ở, sống
+桌子|zhuōzi|cái bàn
+字|zì|chữ
+昨天|zuótiān|hôm qua
+坐|zuò|ngồi
+做|zuò|làm
+您|nín|ngài
+女|nǚ|nữ
+它|tā|nó
+们|men|(hậu tố số nhiều)
+子|zi|(hậu tố danh từ)
+国|guó|nước, quốc gia
+越南|Yuènán|Việt Nam
+不用谢|búyòng xiè|không có gì (đáp lại lời cảm ơn)
+不用|búyòng|không cần
+李白|Lǐ Bái|Lý Bạch (tên người)
+李思齐|Lǐ Sīqí|Lý Tư Tề (tên người)
+法国|Fǎguó|nước Pháp
+学|xué|học
+同|tóng|cùng, giống
+问|wèn|hỏi
+请问|qǐngwèn|xin hỏi
+不好意思|bù hǎoyìsi|xin lỗi, ngại quá
+没事|méishì|không sao
+姓|xìng|họ
+姓名|xìngmíng|họ tên
+早|zǎo|sớm
+早上|zǎoshang|sáng sớm
+手|shǒu|tay
+手机|shǒujī|điện thoại di động
+对|duì|đúng
+新|xīn|mới
+旧|jiù|cũ
+好看|hǎokàn|đẹp
+也|yě|cũng
+颜色|yánsè|màu sắc
+黑色|hēisè|màu đen
+白色|báisè|màu trắng
+知道|zhīdào|biết
+晚|wǎn|muộn, tối
+中|zhōng|giữa, trong
+晚上|wǎnshang|buổi tối
+晚安|wǎn'ān|chúc ngủ ngon
+这些|zhèxiē|những cái này
+那些|nàxiē|những cái kia
+英语|Yīngyǔ|tiếng Anh
+中文|Zhōngwén|tiếng Trung
+汉字|Hànzì|chữ Hán
+课本|kèběn|sách giáo khoa
+难|nán|khó
+错|cuò|sai
+不错|búcuò|không tệ
+没错|méicuò|không sai
+米雪|Mǐ Xuě|Mễ Tuyết (tên người)
+照片|zhàopiàn|ảnh
+帅|shuài|đẹp trai
+哥哥|gēge|anh trai
+小心|xiǎoxīn|cẩn thận
+姐姐|jiějie|chị gái
+妹妹|mèimei|em gái
+老公|lǎogōng|chồng (thân mật)
+老婆|lǎopo|vợ (thân mật)
+弟弟|dìdi|em trai
+口|kǒu|miệng
+张|zhāng|tờ (lượng từ)
+跟|gēn|cùng, theo
+马小军|Mǎ Xiǎojūn|Mã Tiểu Quân (tên người)
+啊|a|à, ạ
+介绍|jièshào|giới thiệu
+一下|yíxià|một chút
+难过|nánguò|buồn
+小学|xiǎoxué|tiểu học
+中学|zhōngxué|trung học
+初中|chūzhōng|trung học cơ sở
+高中|gāozhōng|trung học phổ thông
+大学|dàxué|đại học
+医学|yīxué|y học
+真|zhēn|thật
+可爱|kě'ài|đáng yêu
+吧|ba|nhé, đi
+张萌|Zhāng Méng|Trương Manh (tên người)
+睡午觉|shuì wǔjiào|ngủ trưa
+睡懒觉|shuì lǎnjiào|ngủ nướng
+懒|lǎn|lười
+还|huán|trả lại
+天|tiān|trời, ngày
+分|fēn|phút; điểm; phân
+课|kè|bài học
+上课|shàngkè|vào học
+下课|xiàkè|tan học
+电影院|diànyǐngyuàn|rạp chiếu phim
+电视剧|diànshìjù|phim truyền hình
+开始|kāishǐ|bắt đầu
+半|bàn|nửa
+刻|kè|khắc (15 phút)
+差|chà|kém, thiếu
+咖啡|kāfēi|cà phê
+店|diàn|cửa hàng
+奶|nǎi|sữa
+奶茶|nǎichá|trà sữa
+啤酒|píjiǔ|bia
+可乐|kělè|coca
+酒|jiǔ|rượu
+杯|bēi|cốc, ly
+瓶|píng|chai, lọ
+洗|xǐ|rửa, giặt
+洗手间|xǐshǒujiān|nhà vệ sinh
+公司|gōngsī|công ty
+银行|yínháng|ngân hàng
+理发店|lǐfàdiàn|tiệm cắt tóc
+办公楼|bàngōnglóu|tòa nhà văn phòng
+办公|bàngōng|làm việc (văn phòng)
+楼|lóu|tòa nhà, tầng
+办公室|bàngōngshì|văn phòng
+室|shì|phòng
+宿舍|sùshè|ký túc xá
+舍友|shèyǒu|bạn cùng ký túc
+室友|shìyǒu|bạn cùng phòng
+图书馆|túshūguǎn|thư viện
+食堂|shítáng|căn tin
+留学生|liúxuéshēng|du học sinh
+哪里|nǎlǐ|ở đâu
+那儿|nàr|ở đó
+那里|nàlǐ|chỗ kia
+这儿|zhèr|ở đây
+这里|zhèlǐ|chỗ này
+饭|fàn|cơm, bữa ăn
+早饭|zǎofàn|bữa sáng
+午饭|wǔfàn|bữa trưa
+晚饭|wǎnfàn|bữa tối
+外卖|wàimài|đồ ăn giao tận nơi
+东边|dōngbian|phía đông
+西边|xībian|phía tây
+南边|nánbian|phía nam
+北边|běibian|phía bắc
+前边|qiánbian|phía trước
+后边|hòubian|phía sau
+周末|zhōumò|cuối tuần
+上周|shàngzhōu|tuần trước
+下周|xiàzhōu|tuần sau
+一起|yìqǐ|cùng nhau
+玩儿|wánr|chơi
+离|lí|cách
+远|yuǎn|xa
+近|jìn|gần
+公里|gōnglǐ|ki-lô-mét
+房间号|fángjiānhào|số phòng
+电话号|diànhuàhào|số điện thoại
+教室|jiàoshì|lớp học
+等|děng|đợi
+花|huā|hoa
+花园|huāyuán|vườn hoa
+礼拜|lǐbài|tuần lễ; thứ
+丈夫|zhàngfu|chồng
+妻子|qīzi|vợ
+夫妻|fūqī|vợ chồng
+冰箱|bīngxiāng|tủ lạnh
+台|tái|đài, bục (lượng từ máy)
+外|wài|bên ngoài
+心里|xīnli|trong lòng
+芒果|mángguǒ|quả xoài
+梨|lí|quả lê
+草莓|cǎoméi|dâu tây
+西瓜|xīguā|dưa hấu
+超市|chāoshì|siêu thị
+日用品|rìyòngpǐn|đồ dùng hằng ngày
+牛奶|niúnǎi|sữa bò
+牛|niú|con bò
+包|bāo|túi, gói
+书包|shūbāo|cặp sách
+钱包|qiánbāo|ví tiền
+斤|jīn|cân (500g)
+公斤|gōngjīn|ki-lô-gam
+元|yuán|đồng (tiền)
+一共|yígòng|tổng cộng
+贵|guì|đắt
+便宜|piányi|rẻ
+走|zǒu|đi bộ
+种|zhǒng|loại
+红|hóng|đỏ
+黄|huáng|vàng
+蓝|lán|xanh dương
+绿|lǜ|xanh lá
+还是|háishi|hay là
+酸|suān|chua
+甜|tián|ngọt
+苦|kǔ|đắng
+辣|là|cay
+毛|máo|hào (tiền); lông
+找|zhǎo|tìm
+还|huán|trả lại
+王语|Wáng Yǔ|Vương Ngữ (tên người)
+美国|Měiguó|nước Mỹ`,
+2: `吧|ba|nhé, đi
+白|bái|trắng
+百|bǎi|trăm
+帮助|bāngzhù|giúp đỡ
+报纸|bàozhǐ|báo
+比|bǐ|so với
+别|bié|đừng
+长|cháng|dài
+唱歌|chàng gē|hát
+出|chū|ra
+穿|chuān|mặc
+次|cì|lần
+从|cóng|từ
+错|cuò|sai
+打篮球|dǎ lánqiú|chơi bóng rổ
+大家|dàjiā|mọi người
+到|dào|đến
+得|de|được (bổ ngữ)
+等|děng|đợi
+弟弟|dìdi|em trai
+第一|dì yī|thứ nhất
+懂|dǒng|hiểu
+对|duì|đúng
+房间|fángjiān|phòng
+非常|fēicháng|vô cùng
+服务员|fúwùyuán|nhân viên phục vụ
+高|gāo|cao
+告诉|gàosu|nói cho biết
+哥哥|gēge|anh trai
+给|gěi|cho
+公共汽车|gōnggòng qìchē|xe buýt
+公司|gōngsī|công ty
+贵|guì|đắt
+过|guo|đã từng
+还|hái|còn, vẫn
+孩子|háizi|đứa trẻ
+好吃|hǎochī|ngon
+黑|hēi|đen
+红|hóng|đỏ
+火车站|huǒchēzhàn|ga tàu hỏa
+机场|jīchǎng|sân bay
+鸡蛋|jīdàn|trứng gà
+件|jiàn|cái (áo...)
+教室|jiàoshì|lớp học
+姐姐|jiějie|chị gái
+介绍|jièshào|giới thiệu
+进|jìn|vào
+近|jìn|gần
+就|jiù|liền, thì
+觉得|juéde|cảm thấy
+咖啡|kāfēi|cà phê
+开始|kāishǐ|bắt đầu
+考试|kǎoshì|thi
+可能|kěnéng|có thể
+可以|kěyǐ|được
+课|kè|bài học
+快|kuài|nhanh
+快乐|kuàilè|vui vẻ
+累|lèi|mệt
+离|lí|cách
+两|liǎng|hai
+路|lù|đường
+旅游|lǚyóu|du lịch
+卖|mài|bán
+慢|màn|chậm
+忙|máng|bận
+每|měi|mỗi
+妹妹|mèimei|em gái
+门|mén|cửa
+面条|miàntiáo|mì sợi
+男|nán|nam
+您|nín|ngài
+牛奶|niúnǎi|sữa bò
+女|nǚ|nữ
+旁边|pángbiān|bên cạnh
+跑步|pǎobù|chạy bộ
+便宜|piányi|rẻ
+票|piào|vé
+妻子|qīzi|vợ
+起床|qǐchuáng|thức dậy
+千|qiān|nghìn
+铅笔|qiānbǐ|bút chì
+晴|qíng|nắng
+去年|qùnián|năm ngoái
+让|ràng|để, bảo
+日|rì|ngày
+上班|shàngbān|đi làm
+身体|shēntǐ|cơ thể
+生病|shēngbìng|bị ốm
+生日|shēngrì|sinh nhật
+时间|shíjiān|thời gian
+事情|shìqing|sự việc
+手表|shǒubiǎo|đồng hồ đeo tay
+手机|shǒujī|điện thoại di động
+说话|shuōhuà|nói chuyện
+送|sòng|tặng, tiễn
+虽然|suīrán|tuy rằng
+但是|dànshì|nhưng
+它|tā|nó
+踢足球|tī zúqiú|đá bóng
+题|tí|câu hỏi, đề
+跳舞|tiàowǔ|nhảy múa
+外|wài|bên ngoài
+完|wán|xong
+玩|wán|chơi
+晚上|wǎnshang|buổi tối
+往|wǎng|hướng về
+为什么|wèishénme|tại sao
+问|wèn|hỏi
+问题|wèntí|vấn đề
+西瓜|xīguā|dưa hấu
+希望|xīwàng|hy vọng
+洗|xǐ|rửa, giặt
+小时|xiǎoshí|giờ đồng hồ
+笑|xiào|cười
+新|xīn|mới
+姓|xìng|họ
+休息|xiūxi|nghỉ ngơi
+雪|xuě|tuyết
+颜色|yánsè|màu sắc
+眼睛|yǎnjing|mắt
+羊肉|yángròu|thịt cừu
+药|yào|thuốc
+要|yào|muốn, cần
+也|yě|cũng
+一起|yìqǐ|cùng nhau
+一下|yíxià|một chút
+已经|yǐjīng|đã
+意思|yìsi|ý nghĩa
+因为|yīnwèi|bởi vì
+所以|suǒyǐ|cho nên
+阴|yīn|âm u
+游泳|yóuyǒng|bơi
+右边|yòubian|bên phải
+鱼|yú|cá
+远|yuǎn|xa
+运动|yùndòng|vận động
+再|zài|lại, nữa
+早上|zǎoshang|sáng sớm
+丈夫|zhàngfu|chồng
+找|zhǎo|tìm
+着|zhe|đang (trợ từ)
+真|zhēn|thật
+正在|zhèngzài|đang
+知道|zhīdào|biết
+准备|zhǔnbèi|chuẩn bị
+走|zǒu|đi bộ
+最|zuì|nhất
+左边|zuǒbian|bên trái
+一般|yìbān|thông thường
+做|zuò|làm
+工作|gōngzuò|công việc
+经常|jīngcháng|thường xuyên
+动物园|dòngwùyuán|sở thú
+动物|dòngwù|động vật
+听|tīng|nghe
+读|dú|đọc
+写|xiě|viết
+说|shuō|nói
+作业|zuòyè|bài tập
+旅行|lǚxíng|đi du lịch
+小龙|Xiǎolóng|Tiểu Long (tên người)
+时候|shíhou|lúc, khi
+游泳馆|yóuyǒngguǎn|nhà thi đấu bơi
+卡|kǎ|thẻ
+身份证|shēnfènzhèng|chứng minh thư
+办|bàn|làm, xử lý
+锻炼|duànliàn|rèn luyện
+爬山|páshān|leo núi
+地球|dìqiú|trái đất
+篮球|lánqiú|bóng rổ
+羽毛球|yǔmáoqiú|cầu lông
+网球|wǎngqiú|quần vợt
+排球|páiqiú|bóng chuyền
+打|dǎ|đánh, chơi
+习惯|xíguàn|thói quen
+或者|huòzhě|hoặc
+见面|jiànmiàn|gặp mặt
+饿|è|đói
+饱|bǎo|no
+饭店|fàndiàn|nhà hàng, khách sạn
+常|cháng|thường
+走路|zǒulù|đi bộ
+电话|diànhuà|điện thoại
+打电话|dǎ diànhuà|gọi điện thoại
+接电话|jiē diànhuà|nghe điện thoại
+应该|yīnggāi|nên
+黄河|Huáng Hé|sông Hoàng Hà
+河内|Hénèi|Hà Nội
+怎么样|zěnmeyàng|như thế nào
+喂|wèi|alo
+事|shì|việc, sự việc
+水果店|shuǐguǒdiàn|cửa hàng trái cây
+爱人|àiren|người yêu, vợ/chồng
+对象|duìxiàng|đối tượng, người yêu
+男朋友|nánpéngyou|bạn trai
+女朋友|nǚpéngyou|bạn gái
+出发|chūfā|xuất phát
+地方|dìfang|nơi chốn
+回来|huílái|trở về
+迟到|chídào|đến muộn
+最近|zuìjìn|gần đây
+天气|tiānqì|thời tiết
+预报|yùbào|dự báo
+晴天|qíngtiān|trời nắng
+阴天|yīntiān|trời âm u
+雨|yǔ|mưa
+下雨|xiàyǔ|trời mưa
+下大雨|xià dàyǔ|mưa lớn
+下小雨|xià xiǎoyǔ|mưa nhỏ
+这几天|zhè jǐ tiān|mấy ngày nay
+风|fēng|gió
+刮风|guāfēng|gió thổi
+热|rè|nóng
+冷|lěng|lạnh
+死|sǐ|chết
+温度|wēndù|nhiệt độ
+北京|Běijīng|Bắc Kinh
+月|yuè|tháng
+年|nián|năm
+季节|jìjié|mùa
+节日|jiérì|ngày lễ
+节目|jiémù|chương trình
+春天|chūntiān|mùa xuân
+夏天|xiàtiān|mùa hè
+秋天|qiūtiān|mùa thu
+冬天|dōngtiān|mùa đông
+雨季|yǔjì|mùa mưa
+旱季|hànjì|mùa khô
+干杯|gānbēi|cạn ly
+回南天|huínántiān|thời tiết nồm ẩm
+暖和|nuǎnhuo|ấm áp
+凉快|liángkuai|mát mẻ
+风景|fēngjǐng|phong cảnh
+漂亮|piàoliang|xinh đẹp
+花|huā|hoa
+开|kāi|mở, lái
+树|shù|cây
+下雪|xiàxuě|tuyết rơi
+更|gèng|hơn nữa
+参加|cānjiā|tham gia
+参观|cānguān|tham quan
+队|duì|đội
+自己|zìjǐ|bản thân
+个子|gèzi|vóc dáng
+米|mǐ|mét; gạo
+矮|ǎi|thấp
+今年|jīnnián|năm nay
+明年|míngnián|sang năm
+岁|suì|tuổi
+短|duǎn|ngắn
+久|jiǔ|lâu
+重|zhòng|nặng
+轻|qīng|nhẹ
+公里|gōnglǐ|ki-lô-mét
+跟|gēn|cùng, theo
+练习|liànxí|luyện tập
+胖|pàng|béo
+瘦|shòu|gầy
+比赛|bǐsài|cuộc thi
+老家|lǎojiā|quê nhà
+回|huí|về
+带|dài|mang
+雨伞|yǔsǎn|cây dù
+感兴趣|gǎn xìngqù|hứng thú
+有趣|yǒuqù|thú vị
+有意思|yǒu yìsi|thú vị
+体育|tǐyù|thể dục
+特别|tèbié|đặc biệt
+体育馆|tǐyùguǎn|nhà thi đấu
+欢迎|huānyíng|hoan nghênh
+接|jiē|đón, nhận
+先|xiān|trước
+然后|ránhòu|sau đó
+舒服|shūfu|thoải mái
+难受|nánshòu|khó chịu
+难过|nánguò|buồn
+感冒|gǎnmào|cảm lạnh
+病|bìng|bệnh
+发烧|fāshāo|sốt
+咳嗽|késou|ho
+鼻子|bízi|mũi
+流鼻涕|liú bítì|chảy nước mũi
+流|liú|chảy
+看医生|kàn yīshēng|đi khám bác sĩ
+看病|kànbìng|khám bệnh
+病人|bìngrén|bệnh nhân
+看病人|kàn bìngrén|thăm bệnh nhân
+药店|yàodiàn|hiệu thuốc
+开药|kāiyào|kê thuốc
+药方|yàofāng|đơn thuốc
+吃药|chīyào|uống thuốc
+遍|biàn|lần, lượt
+打针|dǎzhēn|tiêm
+主意|zhǔyi|ý kiến, chủ ý
+衣服|yīfu|quần áo
+不过|búguò|tuy nhiên
+可是|kěshì|nhưng
+头|tóu|đầu
+头发|tóufa|tóc
+疼|téng|đau
+头疼|tóuténg|đau đầu
+考|kǎo|thi
+健康|jiànkāng|khỏe mạnh
+重要|zhòngyào|quan trọng
+有一点儿|yǒu yìdiǎnr|hơi, một chút
+看见|kànjiàn|nhìn thấy
+家务|jiāwù|việc nhà
+复习|fùxí|ôn tập
+生词|shēngcí|từ mới
+课文|kèwén|bài khóa
+车|chē|xe
+辆|liàng|chiếc (xe)
+飞|fēi|bay
+飞机|fēijī|máy bay
+火车|huǒchē|tàu hỏa
+出租车|chūzūchē|taxi
+自行车|zìxíngchē|xe đạp
+电车|diànchē|xe điện
+摩托车|mótuōchē|xe máy
+广场|guǎngchǎng|quảng trường
+汽车|qìchē|ô tô
+公交车|gōngjiāochē|xe buýt
+地|de|một cách (trợ từ)
+地铁|dìtiě|tàu điện ngầm
+高铁|gāotiě|tàu cao tốc
+船|chuán|thuyền
+打车|dǎchē|bắt taxi
+好久|hǎojiǔ|rất lâu
+住|zhù|ở, sống
+来自|láizì|đến từ
+站|zhàn|đứng; trạm
+方便|fāngbiàn|tiện lợi
+地图|dìtú|bản đồ
+世界|shìjiè|thế giới
+网|wǎng|mạng, lưới
+上网|shàngwǎng|lên mạng
+购物|gòuwù|mua sắm
+聊天儿|liáotiānr|trò chuyện
+凯文|Kǎiwén|Kevin (tên người)
+北京南站|Běijīng Nánzhàn|ga Bắc Kinh Nam
+爱家宾馆|Àijiā Bīnguǎn|khách sạn Ái Gia
+宾馆|bīnguǎn|nhà khách, khách sạn
+怎么|zěnme|thế nào, sao
+包间|bāojiān|phòng riêng (nhà hàng)
+订|dìng|đặt (trước)
+位|wèi|vị (lượng từ)
+先生|xiānsheng|ông, ngài
+菜|cài|món ăn, rau
+菜单|càidān|thực đơn
+青菜|qīngcài|rau xanh
+条|tiáo|sợi, con (lượng từ)
+烤鸭|kǎoyā|vịt quay
+牛|niú|con bò
+够|gòu|đủ
+猫|māo|con mèo
+饮料|yǐnliào|đồ uống
+果汁|guǒzhī|nước ép
+点|diǎn|giờ; chút
+行|xíng|được
+祝|zhù|chúc
+礼物|lǐwù|quà
+客气|kèqi|khách sáo
+寿面|shòumiàn|mì trường thọ
+蛋糕|dàngāo|bánh ngọt
+会|huì|biết, sẽ
+碗|wǎn|cái bát
+盘子|pánzi|cái đĩa
+筷子|kuàizi|đũa
+桌子|zhuōzi|cái bàn
+张|zhāng|tờ (lượng từ)
+椅子|yǐzi|cái ghế
+灯|dēng|đèn
+开灯|kāidēng|bật đèn
+关灯|guāndēng|tắt đèn
+粉色|fěnsè|màu hồng
+打算|dǎsuàn|dự định
+首|shǒu|bài (bài hát); đầu
+没问题|méi wèntí|không vấn đề
+当然|dāngrán|đương nhiên
+发现|fāxiàn|phát hiện
+第|dì|thứ (số thứ tự)
+查|chá|tra, kiểm tra
+聊天|liáotiān|trò chuyện
+家|jiā|nhà
+环境|huánjìng|môi trường
+生活|shēnghuó|cuộc sống
+热情|rèqíng|nhiệt tình
+才|cái|mới
+干|gàn|làm (việc)
+打扫|dǎsǎo|quét dọn
+裙子|qúnzi|váy
+裤子|kùzi|quần
+蛇|shé|con rắn
+河|hé|sông
+样子|yàngzi|dáng vẻ
+还可以|hái kěyǐ|cũng được
+适合|shìhé|phù hợp
+话|huà|lời nói
+出差|chūchāi|đi công tác
+比较|bǐjiào|tương đối
+衬衫|chènshān|áo sơ mi
+鞋子|xiézi|giày
+拖鞋|tuōxié|dép lê
+运动鞋|yùndòngxié|giày thể thao
+高跟鞋|gāogēnxié|giày cao gót
+皮鞋|píxié|giày da
+平时|píngshí|ngày thường
+能|néng|có thể
+帮|bāng|giúp
+帮忙|bāngmáng|giúp đỡ`,
+3: `阿姨|āyí|dì, cô
+啊|a|à, ạ
+矮|ǎi|thấp
+爱好|àihào|sở thích
+安静|ānjìng|yên tĩnh
+把|bǎ|đem (giới từ)
+班|bān|lớp
+搬|bān|chuyển
+半|bàn|nửa
+办法|bànfǎ|cách, biện pháp
+办公室|bàngōngshì|văn phòng
+帮忙|bāngmáng|giúp đỡ
+包|bāo|túi, gói
+饱|bǎo|no
+北方|běifāng|phía bắc
+被|bèi|bị
+鼻子|bízi|mũi
+比较|bǐjiào|tương đối
+比赛|bǐsài|cuộc thi
+笔记本|bǐjìběn|sổ tay
+必须|bìxū|phải
+变化|biànhuà|thay đổi
+别人|biérén|người khác
+冰箱|bīngxiāng|tủ lạnh
+不但|búdàn|không những
+才|cái|mới
+菜单|càidān|thực đơn
+参加|cānjiā|tham gia
+草|cǎo|cỏ
+层|céng|tầng
+差|chà|kém, thiếu
+超市|chāoshì|siêu thị
+衬衫|chènshān|áo sơ mi
+成绩|chéngjì|thành tích
+城市|chéngshì|thành phố
+迟到|chídào|đến muộn
+除了|chúle|ngoài ra
+船|chuán|thuyền
+春|chūn|mùa xuân
+词典|cídiǎn|từ điển
+聪明|cōngmíng|thông minh
+打扫|dǎsǎo|quét dọn
+打算|dǎsuàn|dự định
+带|dài|mang
+担心|dānxīn|lo lắng
+蛋糕|dàngāo|bánh ngọt
+当然|dāngrán|đương nhiên
+灯|dēng|đèn
+地方|dìfang|nơi chốn
+地铁|dìtiě|tàu điện ngầm
+地图|dìtú|bản đồ
+电梯|diàntī|thang máy
+电子邮件|diànzǐ yóujiàn|email
+东|dōng|phía đông
+冬|dōng|mùa đông
+动物|dòngwù|động vật
+短|duǎn|ngắn
+段|duàn|đoạn
+锻炼|duànliàn|rèn luyện
+多么|duōme|biết bao
+饿|è|đói
+耳朵|ěrduo|tai
+发|fā|gửi, phát
+发烧|fāshāo|sốt
+发现|fāxiàn|phát hiện
+方便|fāngbiàn|tiện lợi
+放|fàng|đặt, để
+放心|fàngxīn|yên tâm
+附近|fùjìn|gần đây
+复习|fùxí|ôn tập
+干净|gānjìng|sạch sẽ
+敢|gǎn|dám
+感冒|gǎnmào|cảm lạnh
+刚才|gāngcái|vừa nãy
+根据|gēnjù|căn cứ
+跟|gēn|cùng, theo
+更|gèng|hơn nữa
+公园|gōngyuán|công viên
+故事|gùshi|câu chuyện
+刮风|guāfēng|gió thổi
+关|guān|đóng
+关系|guānxi|quan hệ
+关心|guānxīn|quan tâm
+关于|guānyú|về
+国家|guójiā|quốc gia
+果汁|guǒzhī|nước ép
+过去|guòqù|quá khứ, đi qua
+还是|háishi|hay là
+害怕|hàipà|sợ
+黑板|hēibǎn|bảng đen
+后来|hòulái|sau đó
+护照|hùzhào|hộ chiếu
+画|huà|vẽ
+坏|huài|hỏng, xấu
+欢迎|huānyíng|hoan nghênh
+环境|huánjìng|môi trường
+换|huàn|đổi
+回答|huídá|trả lời
+会议|huìyì|cuộc họp
+或者|huòzhě|hoặc
+几乎|jīhū|hầu như
+机会|jīhuì|cơ hội
+极|jí|cực kỳ
+记得|jìde|nhớ
+季节|jìjié|mùa
+检查|jiǎnchá|kiểm tra
+简单|jiǎndān|đơn giản
+健康|jiànkāng|khỏe mạnh
+见面|jiànmiàn|gặp mặt
+讲|jiǎng|nói, giảng
+教|jiāo|dạy
+角|jiǎo|hào, góc
+脚|jiǎo|bàn chân
+接|jiē|đón, nhận
+街道|jiēdào|đường phố
+结婚|jiéhūn|kết hôn
+结束|jiéshù|kết thúc
+节目|jiémù|chương trình
+节日|jiérì|ngày lễ
+解决|jiějué|giải quyết
+借|jiè|mượn
+经常|jīngcháng|thường xuyên
+经过|jīngguò|đi qua
+经理|jīnglǐ|giám đốc
+久|jiǔ|lâu
+旧|jiù|cũ
+句子|jùzi|câu
+决定|juédìng|quyết định
+可爱|kě'ài|đáng yêu
+渴|kě|khát
+刻|kè|khắc (15 phút)
+客人|kèrén|khách
+空调|kōngtiáo|điều hòa
+口|kǒu|miệng
+哭|kū|khóc
+裤子|kùzi|quần
+筷子|kuàizi|đũa
+蓝|lán|xanh dương
+老|lǎo|già
+离开|líkāi|rời đi
+礼物|lǐwù|quà
+历史|lìshǐ|lịch sử
+脸|liǎn|mặt
+练习|liànxí|luyện tập
+辆|liàng|chiếc (xe)
+聊天|liáotiān|trò chuyện
+了解|liǎojiě|hiểu rõ
+邻居|línjū|hàng xóm
+楼|lóu|tòa nhà, tầng
+绿|lǜ|xanh lá
+马|mǎ|ngựa
+马上|mǎshàng|ngay lập tức
+满意|mǎnyì|hài lòng
+帽子|màozi|mũ
+米|mǐ|mét; gạo
+面包|miànbāo|bánh mì
+明白|míngbai|hiểu
+拿|ná|cầm
+奶奶|nǎinai|bà nội
+南|nán|phía nam
+难|nán|khó
+难过|nánguò|buồn
+年级|niánjí|khối lớp
+年轻|niánqīng|trẻ
+鸟|niǎo|chim
+努力|nǔlì|cố gắng
+爬山|páshān|leo núi
+盘子|pánzi|cái đĩa
+胖|pàng|béo
+啤酒|píjiǔ|bia
+皮鞋|píxié|giày da
+瓶子|píngzi|cái chai
+其实|qíshí|thực ra
+其他|qítā|khác
+奇怪|qíguài|kỳ lạ
+骑|qí|cưỡi, đạp
+起飞|qǐfēi|cất cánh
+清楚|qīngchu|rõ ràng
+请假|qǐngjià|xin nghỉ
+秋|qiū|mùa thu
+裙子|qúnzi|váy
+然后|ránhòu|sau đó
+热情|rèqíng|nhiệt tình
+认为|rènwéi|cho rằng
+认真|rènzhēn|nghiêm túc
+容易|róngyì|dễ
+如果|rúguǒ|nếu
+伞|sǎn|ô, dù
+上网|shàngwǎng|lên mạng
+生气|shēngqì|tức giận
+声音|shēngyīn|âm thanh
+世界|shìjiè|thế giới
+试|shì|thử
+瘦|shòu|gầy
+叔叔|shūshu|chú
+舒服|shūfu|thoải mái
+树|shù|cây
+数学|shùxué|toán học
+刷牙|shuāyá|đánh răng
+双|shuāng|đôi
+水平|shuǐpíng|trình độ
+司机|sījī|tài xế
+太阳|tàiyáng|mặt trời
+特别|tèbié|đặc biệt
+疼|téng|đau
+提高|tígāo|nâng cao
+体育|tǐyù|thể dục
+甜|tián|ngọt
+条|tiáo|sợi, con (lượng từ)
+同事|tóngshì|đồng nghiệp
+同意|tóngyì|đồng ý
+头发|tóufa|tóc
+突然|tūrán|đột nhiên
+图书馆|túshūguǎn|thư viện
+腿|tuǐ|chân, đùi
+完成|wánchéng|hoàn thành
+碗|wǎn|cái bát
+万|wàn|vạn
+忘记|wàngjì|quên
+为了|wèile|để
+位|wèi|vị (lượng từ)
+文化|wénhuà|văn hóa
+西|xī|phía tây
+习惯|xíguàn|thói quen
+洗手间|xǐshǒujiān|nhà vệ sinh
+洗澡|xǐzǎo|tắm
+夏|xià|mùa hè
+先|xiān|trước
+相信|xiāngxìn|tin tưởng
+香蕉|xiāngjiāo|chuối
+向|xiàng|hướng về
+像|xiàng|giống
+小心|xiǎoxīn|cẩn thận
+校长|xiàozhǎng|hiệu trưởng
+新闻|xīnwén|tin tức
+新鲜|xīnxiān|tươi
+信用卡|xìnyòngkǎ|thẻ tín dụng
+行李箱|xínglǐxiāng|vali
+熊猫|xióngmāo|gấu trúc
+需要|xūyào|cần
+选择|xuǎnzé|lựa chọn
+要求|yāoqiú|yêu cầu
+爷爷|yéye|ông nội
+一般|yìbān|thông thường
+一边|yìbiān|vừa... vừa...
+一定|yídìng|nhất định
+一共|yígòng|tổng cộng
+一会儿|yíhuìr|một lát
+一样|yíyàng|giống nhau
+一直|yìzhí|luôn luôn
+以前|yǐqián|trước đây
+以为|yǐwéi|tưởng rằng
+音乐|yīnyuè|âm nhạc
+银行|yínháng|ngân hàng
+饮料|yǐnliào|đồ uống
+应该|yīnggāi|nên
+影响|yǐngxiǎng|ảnh hưởng
+用|yòng|dùng
+游戏|yóuxì|trò chơi
+有名|yǒumíng|nổi tiếng
+又|yòu|lại
+遇到|yùdào|gặp phải
+愿意|yuànyì|bằng lòng
+月亮|yuèliang|mặt trăng
+越|yuè|càng
+站|zhàn|đứng; trạm
+张|zhāng|tờ (lượng từ)
+照顾|zhàogù|chăm sóc
+照片|zhàopiàn|ảnh
+照相机|zhàoxiàngjī|máy ảnh
+只|zhǐ|chỉ
+中间|zhōngjiān|ở giữa
+中文|Zhōngwén|tiếng Trung
+终于|zhōngyú|cuối cùng
+种|zhǒng|loại
+重要|zhòngyào|quan trọng
+周末|zhōumò|cuối tuần
+主要|zhǔyào|chủ yếu
+注意|zhùyì|chú ý
+自己|zìjǐ|bản thân
+自行车|zìxíngchē|xe đạp
+总是|zǒngshì|luôn luôn
+嘴|zuǐ|miệng
+最后|zuìhòu|cuối cùng
+最近|zuìjìn|gần đây
+作业|zuòyè|bài tập
+帮|bāng|giúp
+帮助|bāngzhù|giúp đỡ
+试衣间|shìyījiān|phòng thử đồ
+号|hào|ngày, số
+稍等|shāoděng|xin chờ một chút
+上|shàng|trên
+价格|jiàgé|giá cả
+低|dī|thấp
+别的|biéde|cái khác
+刷|shuā|chải, quẹt
+刷卡|shuākǎ|quẹt thẻ
+刷抖音|shuā Dǒuyīn|lướt TikTok
+付钱|fùqián|trả tiền
+现金|xiànjīn|tiền mặt
+黄金|huángjīn|vàng (kim loại)
+转账|zhuǎnzhàng|chuyển khoản
+手表|shǒubiǎo|đồng hồ đeo tay
+合适|héshì|phù hợp
+选|xuǎn|chọn
+戴|dài|đeo
+戴眼镜|dài yǎnjìng|đeo kính
+戴帽子|dài màozi|đội mũ
+同屋|tóngwū|bạn cùng phòng
+同桌|tóngzhuō|bạn cùng bàn
+门|mén|cửa
+友好|yǒuhǎo|thân thiện
+门口|ménkǒu|cửa ra vào
+生病|shēngbìng|bị ốm
+工作|gōngzuò|công việc
+以后|yǐhòu|sau này
+校园|xiàoyuán|khuôn viên trường
+一些|yìxiē|một vài
+一点|yìdiǎn|một chút
+学期|xuéqī|học kỳ
+这样|zhèyàng|như vậy
+继续|jìxù|tiếp tục
+情况|qíngkuàng|tình hình
+理解|lǐjiě|hiểu, thấu hiểu
+京剧|jīngjù|kinh kịch
+好玩|hǎowán|vui
+毕业|bìyè|tốt nghiệp
+出国|chūguó|ra nước ngoài
+硕士|shuòshì|thạc sĩ
+研究生|yánjiūshēng|nghiên cứu sinh, cao học
+博士|bóshì|tiến sĩ
+读|dú|đọc
+而且|érqiě|hơn nữa
+过|guo|đã từng
+过来|guòlái|qua đây
+身份证|shēnfènzhèng|chứng minh thư
+记|jì|nhớ, ghi
+签证|qiānzhèng|thị thực, visa
+洗头|xǐtóu|gội đầu
+记住|jìzhù|ghi nhớ
+写字台|xiězìtái|bàn viết
+电脑|diànnǎo|máy tính
+平板|píngbǎn|máy tính bảng
+笔记本电脑|bǐjìběn diànnǎo|máy tính xách tay
+交|jiāo|nộp, giao, kết (bạn)
+消息|xiāoxi|tin tức
+进|jìn|vào
+打车|dǎchē|bắt taxi
+师傅|shīfu|thợ, bác (tài xế, thợ)
+楼梯|lóutī|cầu thang
+着急|zháojí|sốt ruột
+行李|xíngli|hành lý
+后备箱|hòubèixiāng|cốp xe
+会|huì|biết, sẽ
+丢|diū|mất, đánh mất
+钱包|qiánbāo|ví tiền
+挂饰|guàshì|đồ trang trí treo
+都|dōu|đều
+变|biàn|thay đổi, biến
+忘|wàng|quên
+铅笔|qiānbǐ|bút chì
+笔|bǐ|bút
+太阳伞|tàiyángsǎn|ô che nắng
+晚会|wǎnhuì|buổi tiệc
+女生|nǚshēng|nữ sinh
+手|shǒu|tay
+长|cháng|dài
+眼睛|yǎnjing|mắt
+好听|hǎotīng|hay (nghe)
+自学|zìxué|tự học
+张力|Zhāng Lì|Trương Lực (tên người)
+杯|bēi|cốc, ly
+果盘|guǒpán|đĩa trái cây
+西瓜|xīguā|dưa hấu
+听说|tīngshuō|nghe nói
+上班|shàngbān|đi làm
+已经|yǐjīng|đã
+小姐|xiǎojiě|cô, tiểu thư
+出生|chūshēng|sinh ra
+南方|nánfāng|phương nam
+从|cóng|từ
+到|dào|đến
+接到|jiēdào|nhận được
+刘元|Liú Yuán|Lưu Nguyên (tên người)
+上海|Shànghǎi|Thượng Hải
+春节|Chūnjié|Tết Nguyên đán
+爱|ài|yêu
+笑|xiào|cười
+午觉|wǔjiào|giấc ngủ trưa
+米饭|mǐfàn|cơm
+小朋友|xiǎopéngyou|bé, trẻ nhỏ
+草莓|cǎoméi|dâu tây
+可能|kěnéng|có thể
+希望|xīwàng|hy vọng
+赵|Zhào|Triệu (họ)
+身体|shēntǐ|cơ thể
+不要|búyào|đừng, không cần
+儿童|értóng|nhi đồng
+刚|gāng|vừa mới
+小学|xiǎoxué|tiểu học
+年纪|niánjì|tuổi tác
+轻松|qīngsōng|thoải mái
+累|lèi|mệt
+怎么|zěnme|thế nào, sao
+这么|zhème|như thế này
+那么|nàme|như thế kia
+洗脸|xǐliǎn|rửa mặt
+起床|qǐchuáng|thức dậy
+足够|zúgòu|đủ
+散|sàn|tan, tản
+发音|fāyīn|phát âm
+差不多|chàbuduō|gần như
+主意|zhǔyi|ý kiến, chủ ý
+不是|búshì|không phải
+吗|ma|không (nghi vấn)
+台|tái|đài, bục (lượng từ máy)
+款式|kuǎnshì|kiểu dáng
+新款|xīnkuǎn|mẫu mới
+流行|liúxíng|thịnh hành, phổ biến
+眼光|yǎnguāng|tầm nhìn, con mắt
+功能|gōngnéng|chức năng
+打折|dǎzhé|giảm giá
+货|huò|hàng hóa
+质量|zhìliàng|chất lượng
+上学|shàngxué|đi học
+放学|fàngxué|tan học (về)
+摔|shuāi|ngã
+遇见|yùjiàn|gặp
+外地|wàidì|nơi khác, tỉnh khác
+本地|běndì|địa phương
+亲戚|qīnqi|họ hàng
+亲人|qīnrén|người thân
+不如|bùrú|không bằng
+忽然|hūrán|đột nhiên
+想起来|xiǎng qǐlái|nhớ ra
+农历|nónglì|âm lịch
+阳历|yánglì|dương lịch
+饺子|jiǎozi|sủi cảo
+清明节|Qīngmíngjié|tiết Thanh Minh
+劳动节|Láodòngjié|ngày Quốc tế Lao động
+端午节|Duānwǔjié|Tết Đoan Ngọ
+七夕节|Qīxījié|lễ Thất Tịch
+中秋节|Zhōngqiūjié|Tết Trung thu
+月饼|yuèbǐng|bánh trung thu
+国庆节|Guóqìngjié|Quốc khánh
+圆|yuán|tròn
+放假|fàngjià|nghỉ lễ, nghỉ hè
+放暑假|fàng shǔjià|nghỉ hè
+放寒假|fàng hánjià|nghỉ đông
+外公|wàigōng|ông ngoại
+外婆|wàipó|bà ngoại
+南京|Nánjīng|Nam Kinh
+再|zài|lại, nữa
+遍|biàn|lần, lượt
+全|quán|toàn, cả
+完全|wánquán|hoàn toàn
+好玩儿|hǎowánr|vui, thú vị
+名胜古迹|míngshèng gǔjì|danh lam thắng cảnh
+胡志明市|Húzhìmíng Shì|thành phố Hồ Chí Minh
+难得|nándé|hiếm có
+抓住|zhuāzhù|nắm chắc, bắt lấy
+极了|jí le|cực kỳ
+原来|yuánlái|hóa ra
+西安|Xī'ān|Tây An
+还|huán|trả lại
+方面|fāngmiàn|phương diện
+资料|zīliào|tài liệu
+计划|jìhuà|kế hoạch
+后|hòu|sau
+前|qián|trước
+市区|shìqū|nội thành
+郊区|jiāoqū|ngoại ô
+棒|bàng|giỏi, tuyệt
+照看|zhàokàn|trông nom
+咱们|zánmen|chúng ta
+我们|wǒmen|chúng tôi
+兵马俑|bīngmǎyǒng|tượng binh mã
+华清池|Huáqīngchí|Hoa Thanh Trì
+博物馆|bówùguǎn|viện bảo tàng
+电视|diànshì|ti vi
+想象|xiǎngxiàng|tưởng tượng
+大概|dàgài|đại khái
+照相|zhàoxiàng|chụp ảnh
+往|wǎng|hướng về
+左边|zuǒbian|bên trái
+茄子|qiézi|cà tím
+西部|xībù|miền tây
+实物|shíwù|vật thật
+感觉|gǎnjué|cảm giác
+收获|shōuhuò|thu hoạch
+小吃|xiǎochī|món ăn vặt
+出错|chūcuò|xảy ra lỗi
+马路|mǎlù|đường phố
+对面|duìmiàn|đối diện
+公共汽车|gōnggòng qìchē|xe buýt
+当时|dāngshí|lúc đó
+意思|yìsi|ý nghĩa
+后边|hòubian|phía sau
+配|pèi|phối hợp, xứng
+电子游戏|diànzǐ yóuxì|trò chơi điện tử
+散步|sànbù|đi dạo
+顺便|shùnbiàn|tiện thể
+鸡蛋|jīdàn|trứng gà
+题|tí|câu hỏi, đề
+电子词典|diànzǐ cídiǎn|từ điển điện tử
+词语|cíyǔ|từ ngữ
+语法|yǔfǎ|ngữ pháp
+例句|lìjù|câu ví dụ
+事情|shìqing|sự việc
+生词|shēngcí|từ mới
+课文|kèwén|bài khóa
+慢|màn|chậm
+紧张|jǐnzhāng|căng thẳng
+等|děng|đợi
+申请|shēnqǐng|xin, đăng ký
+早上|zǎoshang|sáng sớm`,
+4: `校长|xiàozhǎng|hiệu trưởng
+班长|bānzhǎng|lớp trưởng
+院长|yuànzhǎng|viện trưởng
+行长|hángzhǎng|giám đốc ngân hàng
+家长|jiāzhǎng|phụ huynh
+般|bān|loại, như
+放心|fàngxīn|yên tâm
+关心|guānxīn|quan tâm
+当|dāng|làm; khi
+位|wèi|vị (lượng từ)
+教学|jiàoxué|giảng dạy
+教|jiāo|dạy
+回忆|huíyì|hồi tưởng
+会议室|huìyìshì|phòng họp
+开会|kāihuì|họp
+开放日|kāifàngrì|ngày mở cửa
+开放|kāifàng|mở cửa
+改革|gǎigé|cải cách
+活动|huódòng|hoạt động
+课外活动|kèwài huódòng|hoạt động ngoại khóa
+吸引|xīyǐn|thu hút
+座|zuò|chỗ ngồi, tòa (lượng từ)
+年轻|niánqīng|trẻ
+认真|rènzhēn|nghiêm túc
+兴趣|xìngqù|hứng thú, sở thích
+满意|mǎnyì|hài lòng
+向|xiàng|hướng về
+被|bèi|bị
+房子|fángzi|ngôi nhà
+套|tào|bộ, căn (lượng từ)
+租|zū|thuê
+合租|hézū|thuê chung
+房租|fángzū|tiền thuê nhà
+客厅|kètīng|phòng khách
+厨房|chúfáng|nhà bếp
+厨师|chúshī|đầu bếp
+卧室|wòshì|phòng ngủ
+浴室|yùshì|phòng tắm
+阳台|yángtái|ban công
+中介|zhōngjiè|môi giới
+费|fèi|phí, chi phí
+要求|yāoqiú|yêu cầu
+周围|zhōuwéi|xung quanh
+距离|jùlí|khoảng cách
+之间|zhījiān|giữa
+条件|tiáojiàn|điều kiện
+保准|bǎozhǔn|chắc chắn
+价格|jiàgé|giá cả
+上涨|shàngzhǎng|tăng lên
+下降|xiàjiàng|giảm xuống
+最好|zuìhǎo|tốt nhất
+最后|zuìhòu|cuối cùng
+确定|quèdìng|xác định
+考虑|kǎolǜ|cân nhắc
+随着|suízhe|cùng với, theo
+科技|kējì|khoa học kỹ thuật
+发展|fāzhǎn|phát triển
+经济|jīngjì|kinh tế
+知识|zhīshi|kiến thức
+压力|yālì|áp lực
+调查|diàochá|điều tra
+比例|bǐlì|tỷ lệ
+收入|shōurù|thu nhập
+专|zhuān|chuyên
+专家|zhuānjiā|chuyên gia
+超过|chāoguò|vượt qua
+交通|jiāotōng|giao thông
+工具|gōngjù|công cụ
+发生|fāshēng|xảy ra
+故事|gùshi|câu chuyện
+原因|yuányīn|nguyên nhân
+而|ér|mà, và
+然而|rán'ér|tuy nhiên
+由于|yóuyú|do, bởi vì
+因此|yīncǐ|vì vậy
+者|zhě|người (hậu tố)
+邀请|yāoqǐng|mời
+确实|quèshí|quả thật
+也许|yěxǔ|có lẽ
+许多|xǔduō|nhiều
+感谢|gǎnxiè|cảm ơn
+表示|biǎoshì|biểu thị
+表现|biǎoxiàn|biểu hiện
+代表|dàibiǎo|đại diện
+表白|biǎobái|tỏ tình, bày tỏ
+全|quán|toàn, cả
+表演|biǎoyǎn|biểu diễn
+演员|yǎnyuán|diễn viên
+点头|diǎntóu|gật đầu
+祝贺|zhùhè|chúc mừng
+恭喜|gōngxǐ|chúc mừng
+婚礼|hūnlǐ|lễ cưới
+新娘|xīnniáng|cô dâu
+新郎|xīnláng|chú rể
+作为|zuòwéi|với tư cách là, coi như
+建议|jiànyì|đề nghị
+情况|qíngkuàng|tình hình
+完成|wánchéng|hoàn thành
+任务|rènwu|nhiệm vụ
+取消|qǔxiāo|hủy bỏ
+具体|jùtǐ|cụ thể
+做客|zuòkè|làm khách
+好处|hǎochu|lợi ích
+主任|zhǔrèn|chủ nhiệm, trưởng phòng
+句|jù|câu
+数|shù|số
+数量|shùliàng|số lượng
+双数|shuāngshù|số chẵn
+单数|dānshù|số lẻ
+数字|shùzì|con số
+死|sǐ|chết
+吉利|jílì|may mắn, cát lợi
+热闹|rènao|náo nhiệt
+吵|chǎo|ồn ào, cãi nhau
+收到|shōudào|nhận được
+普遍|pǔbiàn|phổ biến
+普通|pǔtōng|bình thường
+种|zhǒng|loại
+闹钟|nàozhōng|đồng hồ báo thức
+送终|sòngzhōng|lo tang lễ cho người già
+另外|lìngwài|ngoài ra
+护士|hùshi|y tá
+体检|tǐjiǎn|khám sức khỏe
+精神|jīngshén|tinh thần
+一切|yíqiè|tất cả
+所有|suǒyǒu|tất cả
+正常|zhèngcháng|bình thường
+异常|yìcháng|bất thường
+熬夜|áoyè|thức khuya
+亚健康|yàjiànkāng|á sức khỏe
+规律|guīlǜ|quy luật, đều đặn
+规定|guīdìng|quy định
+睡眠|shuìmián|giấc ngủ
+质量|zhìliàng|chất lượng
+改善|gǎishàn|cải thiện
+效果|xiàoguǒ|hiệu quả
+失眠|shīmián|mất ngủ
+失望|shīwàng|thất vọng
+按时|ànshí|đúng giờ
+项目|xiàngmù|dự án, hạng mục
+准时|zhǔnshí|đúng giờ
+按照|ànzhào|theo, dựa theo
+恢复|huīfù|phục hồi
+早日|zǎorì|sớm ngày
+引起|yǐnqǐ|gây ra
+连|lián|liền, ngay cả
+影响|yǐngxiǎng|ảnh hưởng
+增加|zēngjiā|tăng thêm
+出现|chūxiàn|xuất hiện
+保证|bǎozhèng|đảm bảo
+保持|bǎochí|giữ gìn, duy trì
+足够|zúgòu|đủ
+一辈子|yíbèizi|cả đời
+呼吸|hūxī|hô hấp, thở
+空气|kōngqì|không khí
+新鲜|xīnxiān|tươi
+乐观|lèguān|lạc quan
+态度|tàidu|thái độ
+坚持|jiānchí|kiên trì
+尽量|jǐnliàng|cố gắng hết mức
+美食|měishí|ẩm thực ngon
+那么|nàme|như thế kia
+一生|yìshēng|cả đời
+首先|shǒuxiān|trước hết
+其次|qícì|thứ hai là
+乘坐|chéngzuò|đi (xe, tàu)
+乘客|chéngkè|hành khách
+并且|bìngqiě|và còn
+网页|wǎngyè|trang web
+网站|wǎngzhàn|trang web
+互联网|hùliánwǎng|internet
+网址|wǎngzhǐ|địa chỉ web
+注册|zhùcè|đăng ký
+账号|zhànghào|tài khoản
+失败|shībài|thất bại
+提交|tíjiāo|nộp
+订单|dìngdān|đơn đặt hàng
+提前|tíqián|trước thời hạn
+窗口|chuāngkǒu|cửa sổ, quầy
+工人|gōngrén|công nhân
+窗户|chuānghu|cửa sổ
+进行|jìnxíng|tiến hành
+危险|wēixiǎn|nguy hiểm
+安全|ānquán|an toàn
+停止|tíngzhǐ|dừng lại
+顺利|shùnlì|thuận lợi
+来不及|láibují|không kịp
+来得及|láidejí|còn kịp
+候车室|hòuchēshì|phòng chờ xe
+尤其|yóuqí|đặc biệt là
+迅速|xùnsù|nhanh chóng
+速度|sùdù|tốc độ
+成为|chéngwéi|trở thành
+优秀|yōuxiù|xuất sắc
+优点|yōudiǎn|ưu điểm
+名片|míngpiàn|danh thiếp
+之所以|zhīsuǒyǐ|sở dĩ
+达到|dádào|đạt được
+目的|mùdì|mục đích
+缺|quē|thiếu
+缺点|quēdiǎn|khuyết điểm
+配送|pèisòng|giao hàng
+预定|yùdìng|đặt trước
+网速|wǎngsù|tốc độ mạng
+脾气|píqi|tính khí
+成功|chénggōng|thành công
+转动|zhuǎndòng|xoay, quay
+羽毛球|yǔmáoqiú|cầu lông
+网球|wǎngqiú|quần vợt
+乒乓球|pīngpāngqiú|bóng bàn
+举办|jǔbàn|tổ chức
+观众|guānzhòng|khán giả
+左右|zuǒyòu|khoảng, trên dưới
+满|mǎn|đầy
+受|shòu|chịu, nhận
+支持|zhīchí|ủng hộ
+队|duì|đội
+赢|yíng|thắng
+其实|qíshí|thực ra
+技术|jìshù|kỹ thuật
+输|shū|thua
+果然|guǒrán|quả nhiên
+精彩|jīngcǎi|đặc sắc
+激动|jīdòng|xúc động
+场|chǎng|buổi, trận
+报名|bàomíng|đăng ký
+直接|zhíjiē|trực tiếp
+接触|jiēchù|tiếp xúc
+年龄|niánlíng|tuổi tác
+性别|xìngbié|giới tính
+渐渐|jiànjiàn|dần dần
+积累|jīlěi|tích lũy
+经验|jīngyàn|kinh nghiệm
+理想|lǐxiǎng|lý tưởng
+专业|zhuānyè|chuyên ngành
+运动员|yùndòngyuán|vận động viên
+将来|jiānglái|tương lai
+获得|huòdé|đạt được
+冠军|guànjūn|quán quân
+结婚|jiéhūn|kết hôn
+以为|yǐwéi|tưởng rằng
+新浪|Xīnlàng|Sina
+服装|fúzhuāng|trang phục
+传统|chuántǒng|truyền thống
+婚纱|hūnshā|váy cưới
+肯定|kěndìng|khẳng định, chắc chắn
+祝福|zhùfú|chúc phúc
+永远|yǒngyuǎn|mãi mãi
+幸福|xìngfú|hạnh phúc
+节目|jiémù|chương trình
+弹钢琴|tán gāngqín|chơi đàn piano
+厉害|lìhai|giỏi, ghê gớm
+才艺|cáiyì|tài nghệ, năng khiếu
+不仅|bùjǐn|không chỉ
+而且|érqiě|hơn nữa
+家庭|jiātíng|gia đình
+举行|jǔxíng|tổ chức
+浪漫|làngmàn|lãng mạn
+亲戚|qīnqi|họ hàng
+晚|wǎn|muộn, tối
+形式|xíngshì|hình thức
+丰富|fēngfù|phong phú
+海边|hǎibiān|bờ biển
+草地|cǎodì|bãi cỏ
+流行|liúxíng|thịnh hành, phổ biến
+各种|gèzhǒng|các loại
+溜|liū|trượt, lẻn
+统计|tǒngjì|thống kê
+大概|dàgài|đại khái
+依赖|yīlài|dựa dẫm, phụ thuộc
+症|zhèng|chứng bệnh
+躺|tǎng|nằm
+床|chuáng|giường
+抱|bào|ôm
+陪|péi|đi cùng
+干活儿|gànhuór|làm việc
+生|shēng|sinh, sống
+与|yǔ|và, với
+却|què|nhưng lại
+低|dī|thấp
+微信|Wēixìn|WeChat
+练习|liànxí|luyện tập
+偶尔|ǒu'ěr|thỉnh thoảng
+新闻|xīnwén|tin tức
+族|zú|dân tộc, nhóm người
+酒店|jiǔdiàn|khách sạn
+只要|zhǐyào|chỉ cần
+好像|hǎoxiàng|hình như
+严重|yánzhòng|nghiêm trọng
+部分|bùfen|bộ phận
+智能|zhìnéng|thông minh
+世纪|shìjì|thế kỷ
+发明|fāmíng|phát minh
+使|shǐ|khiến, sử dụng
+排队|páiduì|xếp hàng
+脖子|bózi|cái cổ
+视力|shìlì|thị lực
+交流|jiāoliú|giao lưu
+礼貌|lǐmào|lịch sự
+社会|shèhuì|xã hội
+保护|bǎohù|bảo vệ
+人人有责|rénrén yǒu zé|ai cũng có trách nhiệm
+饺子|jiǎozi|sủi cảo
+塑料袋|sùliàodài|túi nilon
+盒子|hézi|cái hộp
+包装|bāozhuāng|bao bì, đóng gói
+垃圾|lājī|rác
+办法|bànfǎ|cách, biện pháp
+要是|yàoshi|nếu
+公共|gōnggòng|công cộng
+污染|wūrǎn|ô nhiễm
+郊区|jiāoqū|ngoại ô
+气候|qìhòu|khí hậu
+重视|zhòngshì|coi trọng
+减少|jiǎnshǎo|giảm bớt
+禁止游客|jìnzhǐ yóukè|cấm du khách
+过程|guòchéng|quá trình
+徒步|túbù|đi bộ
+扔垃圾|rēng lājī|vứt rác
+家电|jiādiàn|đồ điện gia dụng
+处理|chǔlǐ|xử lý
+人民币|rénmínbì|nhân dân tệ
+通过|tōngguò|thông qua
+植树|zhíshù|trồng cây
+研究生|yánjiūshēng|nghiên cứu sinh, cao học
+怪不得|guàibude|thảo nào
+差点儿|chàdiǎnr|suýt nữa
+学霸|xuébà|học bá
+学渣|xuézhā|học dốt (tiếng lóng)
+笔试|bǐshì|thi viết
+合格|hégé|đạt yêu cầu
+面试|miànshì|phỏng vấn
+硕士|shuòshì|thạc sĩ
+博士|bóshì|tiến sĩ
+暂时|zànshí|tạm thời
+国外|guówài|nước ngoài
+实现|shíxiàn|thực hiện, đạt được
+梦想|mèngxiǎng|ước mơ
+毕业|bìyè|tốt nghiệp
+就业|jiùyè|có việc làm
+竞争|jìngzhēng|cạnh tranh
+语言|yǔyán|ngôn ngữ
+能力|nénglì|năng lực
+教育|jiàoyù|giáo dục
+材料|cáiliào|vật liệu, tài liệu
+通知|tōngzhī|thông báo
+办理|bànlǐ|làm thủ tục
+签证|qiānzhèng|thị thực, visa
+护照|hùzhào|hộ chiếu
+手续|shǒuxù|thủ tục
+奖学金|jiǎngxuéjīn|học bổng
+别提了|bié tí le|đừng nhắc nữa
+白天|báitiān|ban ngày
+辛苦|xīnkǔ|vất vả
+分担|fēndān|chia sẻ, gánh vác
+女性|nǚxìng|phụ nữ, giới nữ
+职业|zhíyè|nghề nghiệp
+承担|chéngdān|đảm nhận, gánh vác
+责任|zérèn|trách nhiệm
+男性|nánxìng|nam giới
+千万|qiānwàn|nhất định, vạn lần
+坏|huài|hỏng, xấu
+程度|chéngdù|mức độ
+赚钱|zhuànqián|kiếm tiền
+内|nèi|trong, bên trong
+到底|dàodǐ|rốt cuộc
+看法|kànfǎ|quan điểm
+减轻|jiǎnqīng|làm nhẹ bớt
+即使|jíshǐ|dù cho
+工资|gōngzī|tiền lương
+接受|jiēshòu|tiếp nhận, chấp nhận
+够|gòu|đủ
+特点|tèdiǎn|đặc điểm
+烦恼|fánnǎo|phiền não
+修理|xiūlǐ|sửa chữa
+撞|zhuàng|va, đâm
+一下子|yíxiàzi|trong chốc lát, đột nhiên
+道歉|dàoqiàn|xin lỗi
+停车|tíngchē|đỗ xe
+堵车|dǔchē|tắc đường
+麻烦|máfan|phiền phức
+车位|chēwèi|chỗ đỗ xe
+小区|xiǎoqū|khu dân cư
+商量|shāngliang|bàn bạc
+汽车|qìchē|ô tô
+保险|bǎoxiǎn|bảo hiểm
+状况|zhuàngkuàng|tình trạng
+省钱|shěngqián|tiết kiệm tiền
+力气|lìqi|sức lực
+结果|jiéguǒ|kết quả
+浪费|làngfèi|lãng phí
+讨厌|tǎoyàn|ghét
+头疼|tóuténg|đau đầu
+如何|rúhé|như thế nào
+困难|kùnnan|khó khăn
+忍不住|rěnbuzhù|không nhịn được
+谈|tán|nói chuyện, bàn
+以来|yǐlái|kể từ
+趁|chèn|nhân lúc
+对于|duìyú|đối với
+请客|qǐngkè|mời khách
+礼仪|lǐyí|lễ nghi
+正式|zhèngshì|chính thức
+尊重|zūnzhòng|tôn trọng
+凉|liáng|mát
+汤|tāng|canh, súp
+主食|zhǔshí|lương thực chính
+社交|shèjiāo|giao tiếp xã hội
+餐桌|cānzhuō|bàn ăn
+场合|chǎnghé|dịp, hoàn cảnh
+十分|shífēn|vô cùng
+味道|wèidào|mùi vị
+餐具|cānjù|dụng cụ ăn uống
+勺子|sháozi|cái thìa
+动作|dòngzuò|động tác
+碰|pèng|chạm, va, gặp
+弄|nòng|làm, xoay xở
+开玩笑|kāi wánxiào|đùa
+决定|juédìng|quyết định`
+};
+const VOCAB = {};
+for (const lv of [1,2,3,4]) {
+  VOCAB[lv] = RAW[lv].trim().split("\n").map(l => {
+    const [h, py, vi] = l.split("|");
+    return {h: h.trim(), py: py.trim().toLowerCase(), vi: vi.trim(), lv};
+  });
+}
+
+/* ================= PINYIN ================= */
+const TONE = {'ā':'a','á':'a','ǎ':'a','à':'a','ē':'e','é':'e','ě':'e','è':'e','ī':'i','í':'i','ǐ':'i','ì':'i',
+  'ō':'o','ó':'o','ǒ':'o','ò':'o','ū':'u','ú':'u','ǔ':'u','ù':'u','ǖ':'v','ǘ':'v','ǚ':'v','ǜ':'v','ü':'v'};
+const norm = c => TONE[c] || c;
+const VOW = "aeiouüāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ";
+const isV = c => !!c && VOW.includes(c);
+function splitSyl(py) {
+  const out = [];
+  for (const part of py.split(/[\s']+/)) {
+    let i = 0;
+    while (i < part.length) {
+      let j = i;
+      const m = part.slice(i).match(/^[eēéěè]r/);
+      if (m) { j = i + 2; }
+      else {
+        const two = part.slice(j, j + 2);
+        if (two === "zh" || two === "ch" || two === "sh") j += 2;
+        else if ("bpmfdtnlgkhjqxrzcsyw".includes(part[j])) j++;
+        while (isV(part[j])) j++;
+        if (part[j] === "n") {
+          if (part[j+1] === "g" && !isV(part[j+2])) j += 2;
+          else if (!isV(part[j+1])) j += 1;
+        }
+        if (part[j] === "r" && j === part.length - 1) j++;
+        if (j === i) j++;
+      }
+      out.push(part.slice(i, j));
+      i = j;
+    }
+  }
+  return out;
+}
+const matchCh = (typed, n) => typed === n || (n === "v" && typed === "u");
+
+/* ================= LƯU TRỮ / BẢNG XẾP HẠNG ================= */
+const LB_KEY = "muatuvung_lb_v2", NAME_KEY = "muatuvung_name", LV_KEY = "muatuvung_lv";
+let memStore = {};
+const store = {
+  get(k) { try { const v = localStorage.getItem(k); return v; } catch (e) { return memStore[k] ?? null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) { memStore[k] = v; } }
+};
+const $ = id => document.getElementById(id);
+let remote = [];
+const validE = e => e && e.id && e.name && [1,2,3,4].includes(e.lv) && typeof e.score === "number";
+function allEntries() { const m = new Map(); for (const e of loadLB()) m.set(e.id, e); for (const e of remote) m.set(e.id, e); return [...m.values()]; }
+let onlineOK = null, lastErr = "";
+const dbURL = p => ONLINE_DB.replace(/\/+$/, "") + p;
+async function pullRemote() {
+  if (!ONLINE_DB) return;
+  try { const r = await fetch(dbURL("/scores.json")); if (!r.ok) throw new Error("HTTP " + r.status); const d = await r.json() || {}; remote = Object.values(d).filter(validE); onlineOK = true; }
+  catch (e) { onlineOK = false; lastErr = (e && e.message) || "lỗi không rõ"; }
+  updStatus();
+}
+async function syncPending() {
+  if (!ONLINE_DB) return;
+  const lb = loadLB(); let ch = false;
+  for (const e of lb) if (!e.sent) {
+    try { const {sent, ...clean} = e;
+      const r = await fetch(dbURL("/scores/" + e.id + ".json"), {method: "PUT", headers: {"Content-Type": "application/json"}, body: JSON.stringify(clean)});
+      if (!r.ok) throw 0; e.sent = true; ch = true; } catch (err) { break; }
+  }
+  if (ch) saveLB(lb);
+}
+function updStatus() {
+  const el = $("lbStat"); if (!el) return;
+  el.textContent = !ONLINE_DB ? "⚪ Điểm chỉ lưu trên máy này"
+    : onlineOK === null ? "🔄 Đang kết nối bảng chung…"
+    : onlineOK ? "🟢 Bảng chung cả lớp · tự cập nhật"
+    : "🟠 Chưa kết nối được bảng chung (" + lastErr + (location.protocol === "file:" || location.protocol.startsWith("http") ? "" : " · hãy tải file về máy rồi mở bằng Chrome/Edge") + ") · điểm lưu tạm, sẽ tự gửi sau";
+}
+const loadLB = () => { try { return JSON.parse(store.get(LB_KEY) || "[]"); } catch (e) { return []; } };
+const saveLB = a => store.set(LB_KEY, JSON.stringify(a));
+const keyOf = n => n.trim().toLowerCase();
+const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function bestPerStudent(entries, lv) {
+  const m = new Map();
+  for (const e of entries) {
+    if (e.lv !== lv) continue;
+    const k = keyOf(e.name), cur = m.get(k);
+    if (!cur) m.set(k, {...e, tries: 1});
+    else {
+      const tries = cur.tries + 1;
+      if (e.score > cur.score || (e.score === cur.score && e.time < cur.time)) m.set(k, {...e, tries});
+      else cur.tries = tries;
+    }
+  }
+  return [...m.values()].sort((a, b) => b.score - a.score || a.time - b.time);
+}
+const fmtT = s => s >= 60 ? Math.floor(s/60) + "p" + String(Math.round(s%60)).padStart(2,"0") + "s" : Math.round(s) + "s";
+function renderLB(el, tab, me) {
+  const all = allEntries(), meK = me ? keyOf(me) : null;
+  let rows, html;
+  const medal = i => i < 3 ? `<span class="medal rk${i+1}">${["🥇","🥈","🥉"][i]}</span>` : `<span class="medal" style="color:var(--muted)">${i+1}</span>`;
+  {
+    rows = bestPerStudent(all, +tab).slice(0, 15);
+    if (!rows.length) { el.innerHTML = `<div class="empty">Chưa có ai chơi HSK ${tab}. Hãy là người đầu tiên! 🚀</div>`; return; }
+    html = `<table class="lb"><tr><th>#</th><th>Học sinh</th><th class="r">Điểm</th><th class="r">Độ khó</th><th class="r">Qua màn</th><th class="r">Chính xác</th><th class="r">Thời gian</th></tr>` +
+      rows.map((r, i) => `<tr class="${keyOf(r.name)===meK?"me":""}"><td>${medal(i)}</td><td><span class="lbname">${esc(r.name)}</span><span class="chip">${r.tries} lượt</span></td>` +
+      `<td class="r"><b>${r.score}</b></td><td class="r">${r.diff === "hell" ? '<span class="tag hell">Khó</span>' : '<span class="tag">Dễ</span>'}</td><td class="r">${r.clear == null ? "–" : r.clear + "/" + STAGES}</td><td class="r">${r.acc}%</td><td class="r">${fmtT(r.time)}</td></tr>`).join("") + `</table>`;
+  }
+  el.innerHTML = html;
+}
+
+/* ================= ÂM THANH ================= */
+let actx = null, muted = false;
+function beep(f, d = .09, type = "sine", v = .05, when = 0) {
+  if (muted) return;
+  try {
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    const t = actx.currentTime + when, o = actx.createOscillator(), g = actx.createGain();
+    o.type = type; o.frequency.value = f; g.gain.setValueAtTime(v, t); g.gain.exponentialRampToValueAtTime(.0001, t + d);
+    o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t + d);
+  } catch (e) {}
+}
+const sfx = {
+  key: () => beep(520, .04, "square", .02),
+  ok: c => { beep(660 + Math.min(c, 10) * 30, .1, "triangle", .06); beep(990 + Math.min(c, 10) * 30, .12, "triangle", .05, .07); },
+  bad: () => beep(150, .15, "sawtooth", .05),
+  miss: () => { beep(220, .2, "sawtooth", .06); beep(150, .3, "sawtooth", .06, .12); },
+  win: () => [523, 659, 784, 1047].forEach((f, i) => beep(f, .2, "triangle", .06, i * .12)),
+  lose: () => [392, 330, 262, 196].forEach((f, i) => beep(f, .25, "sawtooth", .05, i * .15)),
+};
+
+/* ================= TRẠNG THÁI & DOM ================= */
+const screens = ["start", "game", "end"];
+const show = id => screens.forEach(s => $(s).classList.toggle("active", s === id));
+
+let selLv = +(store.get(LV_KEY) || 0), lbTab = String(selLv || 1), selDiff = store.get("muatuvung_diff") === "hell" ? "hell" : "easy";
+const STAGES = 3, PER = 30, TOTAL = STAGES * PER, MAX_LIVES = 5;
+// Thời gian rơi (giây) và khoảng cách sinh từ (ms). Mỗi màn 30 từ chia 3 chặng:
+//   từ 1-10: chậm · từ 11-20: tăng dần · từ 21-30: nhanh (như bản gốc). Mỗi màn sau lại nhanh hơn 5%.
+const SPEED = { // độ khó DỄ
+  1: {slow: 28, fast: [17, 11], gSlow: 6200, gFast: [4300, 3500]},
+  2: {slow: 25, fast: [15, 9.5], gSlow: 5600, gFast: [4000, 3200]},
+  3: {slow: 22, fast: [13, 8.5], gSlow: 5000, gFast: [3700, 3000]},
+  4: {slow: 20, fast: [12.5, 8], gSlow: 4600, gFast: [3500, 2800]},
+};
+// độ khó KHÓ: tốc độ như bản đầu tiên (nhanh đều ngay từ đầu, giảm dần trong mỗi màn), thả từ dày hơn, tối đa 7 từ cùng lúc
+const HELL = {
+  1: {fall: [17, 11], gap: [3200, 2200]},
+  2: {fall: [15, 9.5], gap: [2900, 1900]},
+  3: {fall: [13, 8.5], gap: [2600, 1700]},
+  4: {fall: [12, 8], gap: [2400, 1600]},
+};
+const DIFFS = {
+  easy: {name: "Dễ", mult: 1, maxAlive: 4, topClear: true},
+  hell: {name: "Khó", mult: 2, maxAlive: 7, topClear: false},
+};
+function tier(slow, fast, i) { // i = thứ tự từ trong màn (0..29)
+  if (i < 10) return slow;
+  if (i < 20) return lerp(slow, fast[0], Math.min(1, (i - 9) / 8));
+  return lerp(fast[0], fast[1], (i - 20) / 9);
+}
+const stageK = st => 1 - 0.05 * (st - 1);
+const fallFor = (lv, i, st, d) => (d === "hell" ? lerp(HELL[lv].fall[0], HELL[lv].fall[1], i / (PER - 1)) : tier(SPEED[lv].slow, SPEED[lv].fast, i)) * stageK(st);
+const gapFor = (lv, i, st, d) => (d === "hell" ? lerp(HELL[lv].gap[0], HELL[lv].gap[1], i / (PER - 1)) : tier(SPEED[lv].gSlow, SPEED[lv].gFast, i)) * stageK(st);
+let G = null; // game state
+
+function setupStart() {
+  [1,2,3,4].forEach(l => $("n" + l).textContent = VOCAB[l].length + " từ");
+  if (!$("nameInput").value) $("nameInput").value = store.get(NAME_KEY) || "";
+  document.querySelectorAll(".lv").forEach(b => b.classList.toggle("sel", +b.dataset.lv === selLv));
+  document.querySelectorAll(".df").forEach(b => b.classList.toggle("sel", b.dataset.d === selDiff));
+  const tabs = [["1","HSK 1"],["2","HSK 2"],["3","HSK 3"],["4","HSK 4"]];
+  $("lbTabs").innerHTML = tabs.map(([k, t]) => `<button class="tab ${k===lbTab?"on":""}" data-t="${k}">${t}</button>`).join("");
+  renderLB($("lbBody"), lbTab, $("nameInput").value);
+}
+$("lbTabs").addEventListener("click", e => {
+  const t = e.target.closest(".tab"); if (!t) return;
+  lbTab = t.dataset.t; setupStart();
+});
+$("diffs").addEventListener("click", e => {
+  const b = e.target.closest(".df"); if (!b) return;
+  selDiff = b.dataset.d; store.set("muatuvung_diff", selDiff);
+  document.querySelectorAll(".df").forEach(x => x.classList.toggle("sel", x === b));
+});
+$("levels").addEventListener("click", e => {
+  const b = e.target.closest(".lv"); if (!b) return;
+  selLv = +b.dataset.lv; $("err").textContent = "";
+  document.querySelectorAll(".lv").forEach(x => x.classList.toggle("sel", x === b));
+  lbTab = String(selLv); setupStart();
+});
+$("nameInput").addEventListener("input", () => { $("err").textContent = ""; renderLB($("lbBody"), lbTab, $("nameInput").value); });
+$("nameInput").addEventListener("keydown", e => { if (e.key === "Enter") $("goBtn").click(); });
+$("goBtn").addEventListener("click", () => {
+  const name = $("nameInput").value.trim().replace(/\s+/g, " ");
+  if (!name) { $("err").textContent = "Em hãy nhập tên trước nhé!"; $("nameInput").focus(); return; }
+  if (!selLv) { $("err").textContent = "Em hãy chọn cấp độ HSK."; return; }
+  store.set(NAME_KEY, name); store.set(LV_KEY, String(selLv));
+  startGame(name, selLv, selDiff);
+});
+
+/* export / import / clear */
+$("btnExport").onclick = () => {
+  const blob = new Blob([JSON.stringify(loadLB(), null, 1)], {type: "application/json"});
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob);
+  a.download = "bang-xep-hang-mua-tu-vung.json"; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+};
+$("btnImport").onclick = () => $("fileImport").click();
+$("fileImport").onchange = async e => {
+  const f = e.target.files[0]; if (!f) return;
+  try {
+    const inc = JSON.parse(await f.text());
+    if (!Array.isArray(inc)) throw 0;
+    const cur = loadLB(), seen = new Set(cur.map(x => x.id));
+    let n = 0;
+    for (const x of inc) if (x && x.id && x.name && x.lv && typeof x.score === "number" && !seen.has(x.id)) { cur.push(x); seen.add(x.id); n++; }
+    saveLB(cur); setupStart(); alert("Đã gộp thêm " + n + " lượt chơi.");
+  } catch (err) { alert("File không hợp lệ."); }
+  e.target.value = "";
+};
+$("btnClear").onclick = () => {
+  if (confirm("Xoá dữ liệu bảng xếp hạng đang lưu trên máy này? (Điểm đã gửi lên bảng chung online vẫn còn, muốn xoá phải xoá trong Firebase.)")) { saveLB([]); setupStart(); }
+};
+
+/* ================= GAME ================= */
+const field = $("field");
+function lerp(a, b, t) { return a + (b - a) * t; }
+function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+function startGame(name, lv, diff) {
+  field.querySelectorAll(".card,.pop").forEach(n => n.remove());
+  // Ưu tiên các từ chưa gặp trong những ván trước (trên máy này) để ít bị lặp từ
+  const seenKey = "muatuvung_seen_" + lv;
+  let seen; try { seen = new Set(JSON.parse(store.get(seenKey) || "[]")); } catch (e) { seen = new Set(); }
+  const fresh = VOCAB[lv].filter(w => !seen.has(w.h)), old = VOCAB[lv].filter(w => seen.has(w.h));
+  let pool = shuffle(fresh.slice()).concat(shuffle(old.slice())).slice(0, TOTAL);
+  seen = fresh.length >= TOTAL ? new Set([...seen, ...pool.map(w => w.h)]) : new Set(pool.map(w => w.h)); // hết từ mới thì bắt đầu vòng mới
+  store.set(seenKey, JSON.stringify([...seen]));
+  if (pool.length < TOTAL) pool = pool.concat(shuffle(VOCAB[lv].slice()).slice(0, TOTAL - pool.length));
+  G = {name, lv, diff, queue: pool, spawned: 0, resolved: 0, correct: 0, lives: MAX_LIVES, score: 0, combo: 0, maxCombo: 0,
+       keys: 0, goodKeys: 0, cards: [], target: null, missed: [], lastSpawn: 0, state: "count", stage: 1, elapsed: 0, last: 0, id: 0};
+  $("who").textContent = name; $("whoLv").textContent = "HSK " + lv + " · " + DIFFS[diff].name;
+  $("lvTag").innerHTML = "HSK " + lv + (diff === "hell" ? ' · <b style="color:var(--red)">Khó ×2</b>' : " · Dễ");
+  $("last").textContent = ""; $("ovPause").classList.remove("show"); $("ovStage").classList.remove("show");
+  updHUD(); updTyped(); show("game"); resizeRain();
+  runCountdown();
+}
+function runCountdown() {
+  const ov = $("ovCount"), c = $("count"); ov.classList.add("show");
+  let n = 3; c.textContent = n; beep(440, .12, "square", .04);
+  const iv = setInterval(() => {
+    n--;
+    if (n > 0) { c.textContent = n; beep(440, .12, "square", .04); }
+    else { clearInterval(iv); ov.classList.remove("show"); beep(880, .2, "square", .05);
+      G.state = "play"; G.last = performance.now(); G.lastSpawn = -99999; $("hiddenIn").focus(); requestAnimationFrame(loop); }
+  }, 800);
+}
+function updHUD() {
+  $("score").textContent = G.score;
+  const done = G.resolved - (G.stage - 1) * PER;
+  $("mk").textContent = done; $("stg").textContent = G.stage;
+  $("prog").style.width = (done / PER * 100) + "%";
+  $("hearts").innerHTML = Array.from({length: MAX_LIVES}, (_, i) => `<span class="${i < G.lives ? "" : "off"}">❤</span>`).join("");
+  $("combo").textContent = G.combo >= 2 ? "🔥 x" + G.combo : "";
+  $("acc").textContent = G.keys ? Math.round(G.goodKeys / G.keys * 100) + "%" : "";
+}
+function updTyped(bad) {
+  const t = $("typed"), c = G && G.target;
+  if (c) { t.className = "typed" + (bad ? " bad" : ""); t.textContent = c.letters.slice(0, c.typed).map(l => l.t).join("").toUpperCase(); }
+  else { t.className = "typed ph" + (bad ? " bad" : ""); t.textContent = "Gõ pinyin của từ đang rơi…"; }
+}
+
+const idx = () => G.spawned - (G.stage - 1) * PER;
+function spawn() {
+  const i0 = idx(); const w = G.queue[G.spawned++]; if (!w) return;
+  const syl = splitSyl(w.py), letters = [];
+  syl.forEach((s, si) => [...s].forEach(ch => letters.push({o: ch, n: norm(ch), s: si, t: ""})));
+  const el = document.createElement("div"); el.className = "card";
+  const vi = document.createElement("div"); vi.className = "vi"; vi.textContent = w.vi;
+  const py = document.createElement("div"); py.className = "py";
+  const chEls = [];
+  syl.forEach((s, si) => {
+    const sp = document.createElement("span"); sp.className = "syl";
+    [...s].forEach(() => { const c = document.createElement("span"); c.className = "ch"; c.textContent = " "; sp.appendChild(c); chEls.push(c); });
+    py.appendChild(sp);
+  });
+  el.append(vi, py); field.appendChild(el);
+  const cw = el.offsetWidth, ch = el.offsetHeight, W = field.clientWidth, H = field.clientHeight;
+  // chọn x ít chồng lên các thẻ đang ở gần phía trên
+  let bestX = 0, bestScore = -1;
+  const near = G.cards.filter(c => c.y < ch * 2.2);
+  for (let k = 0; k < 14; k++) {
+    const x = 8 + Math.random() * Math.max(0, W - cw - 16);
+    let d = 1e9; for (const c of near) d = Math.min(d, Math.abs(c.x + c.w / 2 - (x + cw / 2)) - (c.w + cw) / 2);
+    if (d > bestScore) { bestScore = d; bestX = x; }
+  }
+  const fall = fallFor(G.lv, i0, G.stage, G.diff) * (0.94 + Math.random() * .12);
+  const card = {id: ++G.id, w, el, chEls, letters, typed: 0, x: bestX, y: -ch, cw, ch, vy: (H + ch) / fall, fall, spawnT: G.elapsed};
+  G.cards.push(card); renderCard(card); place(card);
+}
+function place(c) { c.el.style.transform = `translate(${c.x}px,${c.y}px)`; c.w_ = c.cw; c.w = c.w; }
+function renderCard(c) {
+  c.letters.forEach((l, i) => { const e = c.chEls[i];
+    if (i < c.typed) { e.textContent = l.o; e.className = "ch on"; }
+    else if (i === 0 && c.letters.length > 1) { e.textContent = l.o; e.className = "ch hint"; }
+    else { e.textContent = "\u00A0"; e.className = "ch"; } });
+  c.el.classList.toggle("locked", G.target === c);
+}
+/* fix: card.w is vocab, width is cw */
+function lockTarget(c) { const old = G.target; G.target = c; if (old) renderCard(old); renderCard(c); }
+function unlock() { const old = G.target; G.target = null; if (old) renderCard(old); }
+
+function pickByFirst(ch) {
+  let best = null;
+  for (const c of G.cards) {
+    if (c.typed === 0 && matchCh(ch, c.letters[0].n)) if (!best || c.y > best.y) best = c;
+  }
+  return best;
+}
+function handleChar(ch) {
+  if (!G || G.state !== "play") return;
+  ch = ch.toLowerCase(); if (!/^[a-z]$/.test(ch)) return;
+  G.keys++;
+  let c = G.target;
+  if (!c) { c = pickByFirst(ch); if (c) lockTarget(c); }
+  if (c && matchCh(ch, c.letters[c.typed].n)) {
+    G.goodKeys++; c.letters[c.typed].t = ch; c.typed++; sfx.key(); renderCard(c);
+    if (c.typed === c.letters.length) hit(c);
+    updTyped(); updHUD();
+  } else {
+    G.combo = 0; sfx.bad(); updTyped(true); updHUD();
+    if (c) { c.el.classList.remove("shake"); void c.el.offsetWidth; c.el.classList.add("shake"); }
+    setTimeout(() => { if (G) updTyped(); }, 250);
+  }
+}
+function popText(txt, cls, x, y) {
+  const p = document.createElement("div"); p.className = "pop " + cls; p.textContent = txt; field.appendChild(p);
+  const w = p.offsetWidth, W = field.clientWidth;
+  p.style.transform = `translate(${Math.max(6, Math.min(W - w - 6, x - w / 2))}px,${y}px)`;
+  setTimeout(() => p.remove(), 1350);
+}
+function hit(c) {
+  G.combo++; G.maxCombo = Math.max(G.maxCombo, G.combo);
+  const left = Math.max(0, 1 - (G.elapsed - c.spawnT) / c.fall);
+  const pts = Math.round((100 + c.letters.length * 15 + Math.round(left * 120) + Math.min(G.combo, 10) * 12) * DIFFS[G.diff].mult);
+  G.score += pts; G.correct++; G.resolved++;
+  sfx.ok(G.combo);
+  popText(`${c.w.h} · ${c.w.py}`, "ok", c.x + c.cw / 2, c.y);
+  burst(c.x + c.cw / 2, c.y + c.ch / 2 + 64);
+  $("last").textContent = `${c.w.h} · ${c.w.py} = ${c.w.vi}  (+${pts})`;
+  removeCard(c); updHUD(); checkEnd();
+}
+function removeCard(c) { c.el.remove(); G.cards = G.cards.filter(x => x !== c); if (G.target === c) { G.target = null; updTyped(); } }
+function missed(c) {
+  G.lives--; G.combo = 0; G.resolved++; G.missed.push(c.w); sfx.miss(); G.lastSpawn = G.elapsed * 1000 + 1500;
+  popText(`${c.w.h} · ${c.w.py}`, "bad", c.x + c.cw / 2, field.clientHeight - 60);
+  removeCard(c); updHUD(); checkEnd();
+}
+function checkEnd() {
+  if (G.state !== "play") return;
+  if (G.lives <= 0) return finish(false);
+  if (G.resolved >= G.stage * PER) stageDone();
+}
+function stageDone() {
+  G.state = "break";
+  const bonus = G.lives * 150 * DIFFS[G.diff].mult; G.score += bonus; updHUD();
+  if (G.stage >= STAGES) return finish(true, bonus);
+  sfx.win();
+  $("stTitle").textContent = "🎉 Hoàn thành màn " + G.stage + "!";
+  $("stText").innerHTML = `Điểm: <b style="color:var(--yellow)">${G.score}</b>` + (bonus ? ` (thưởng mạng +${bonus})` : "") +
+    `<br>Màn ${G.stage + 1} sẽ nhanh hơn một chút. Được hồi đủ mạng ❤`;
+  $("btnNext").textContent = "Vào màn " + (G.stage + 1) + " ▶";
+  $("ovStage").classList.add("show");
+}
+$("btnNext").onclick = () => {
+  if (!G || G.state !== "break") return;
+  $("ovStage").classList.remove("show");
+  G.stage++; G.lives = MAX_LIVES; G.combo = 0; G.state = "count"; updHUD(); updTyped(); runCountdown();
+};
+
+function loop(now) {
+  if (!G || G.state !== "play") return;
+  const dt = Math.min(.05, (now - G.last) / 1000); G.last = now; G.elapsed += dt;
+  const H = field.clientHeight;
+  // sinh từ (chỉ sinh từ của màn hiện tại)
+  const gap = gapFor(G.lv, Math.min(PER - 1, idx()), G.stage, G.diff);
+  if (G.spawned < G.stage * PER && G.cards.length < DIFFS[G.diff].maxAlive && (!DIFFS[G.diff].topClear || !G.cards.some(c => c.y < c.ch * 3.5)) && (G.elapsed * 1000 - G.lastSpawn >= gap || (G.cards.length === 0 && G.elapsed * 1000 - G.lastSpawn > 500))) {
+    G.lastSpawn = G.elapsed * 1000; spawn();
+  }
+  for (const c of G.cards.slice()) {
+    c.y += c.vy * dt; place(c);
+    c.el.classList.toggle("near", c.y + c.ch > H * .8);
+    if (c.y + c.ch >= H) missed(c);
+  }
+  rainTick(dt);
+  if (G && G.state === "play") requestAnimationFrame(loop);
+}
+
+/* ---- input ---- */
+document.addEventListener("keydown", e => {
+  if (!G || G.state !== "play" || !$("game").classList.contains("active")) return;
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
+  if (e.key === "Escape") { e.preventDefault(); unlock(); updTyped(); return; }
+  if (e.key === "Backspace") {
+    e.preventDefault(); const c = G.target;
+    if (c) { c.typed = Math.max(0, c.typed - 1); renderCard(c); if (c.typed === 0) unlock(); updTyped(); }
+    return;
+  }
+  if (e.key.length === 1 && /[a-zA-Z]/.test(e.key)) { e.preventDefault(); handleChar(e.key); return; }
+  // bộ gõ tiếng Việt/IME: key = "Process"/"Unidentified" -> lấy phím vật lý, chặn IME biến đổi chữ
+  const m = /^Key([A-Z])$/.exec(e.code || "");
+  if (m && (e.key === "Process" || e.key === "Unidentified" || e.isComposing)) { e.preventDefault(); lastKeyT = performance.now(); handleChar(m[1]); }
+});
+let lastKeyT = 0, prevVal = "";
+$("hiddenIn").addEventListener("input", e => { // dự phòng cho bàn phím ảo trên điện thoại
+  const v = e.target.value;
+  if (e.inputType === "deleteContentBackward") { e.target.value = ""; prevVal = ""; return; }
+  if (e.isComposing || e.inputType === "insertCompositionText") { // gõ gợi ý/IME: chỉ lấy phần chữ MỚI thêm vào
+    const add = v.startsWith(prevVal) ? v.slice(prevVal.length) : v.slice(-1);
+    prevVal = v;
+    if (performance.now() - lastKeyT < 150) return; // đã xử lý bằng keydown
+    if (add) handleChar(add.slice(-1));
+    return;
+  }
+  e.target.value = ""; prevVal = "";
+  if (performance.now() - lastKeyT < 150) return;
+  const d = e.data;
+  if (d) { for (const ch of d) handleChar(ch); } else if (v) handleChar(v.slice(-1));
+});
+$("hiddenIn").addEventListener("compositionend", e => { e.target.value = ""; prevVal = ""; });
+$("hiddenIn").addEventListener("keydown", e => {
+  if (e.key === "Backspace" && G && G.target) { const c = G.target; c.typed = Math.max(0, c.typed - 1); renderCard(c); if (!c.typed) unlock(); updTyped(); }
+});
+$("game").addEventListener("pointerdown", e => { if (!e.target.closest("button")) $("hiddenIn").focus(); });
+
+/* ---- pause ---- */
+function pause() { if (!G || G.state !== "play") return; G.state = "pause"; $("ovPause").classList.add("show"); }
+function resume() { if (!G || G.state !== "pause") return; $("ovPause").classList.remove("show"); G.state = "play"; G.last = performance.now(); $("hiddenIn").focus(); requestAnimationFrame(loop); }
+$("btnPause").onclick = pause; $("btnResume").onclick = resume;
+$("btnQuit").onclick = () => { G.state = "quit"; $("ovPause").classList.remove("show"); G = null; setupStart(); show("start"); };
+$("btnMute").onclick = () => { muted = !muted; $("btnMute").textContent = muted ? "🔇" : "🔊"; };
+document.addEventListener("visibilitychange", () => { if (document.hidden) pause(); });
+window.addEventListener("blur", () => pause());
+
+/* ---- kết thúc ---- */
+function finish(win, bonus = 0) {
+  G.state = "end";
+  G.endBonus = bonus;
+  const acc = G.keys ? Math.round(G.goodKeys / G.keys * 100) : 0, time = Math.round(G.elapsed);
+  const entry = {id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), name: G.name, lv: G.lv, score: G.score,
+    correct: G.correct, acc, time, combo: G.maxCombo, clear: win ? STAGES : G.stage - 1, diff: G.diff, date: new Date().toISOString()};
+  const lb = loadLB(); lb.push({...entry, sent: false}); saveLB(lb); G.entry = entry;
+  win ? sfx.win() : sfx.lose();
+  $("endTitle").textContent = (win ? "🏅 Hoàn thành cả " + STAGES + " màn! " : "💔 Hết mạng ở màn " + G.stage + "! ") + "— " + G.name + " · HSK " + G.lv + " · " + DIFFS[G.diff].name;
+  $("endScore").textContent = G.score;
+  $("sCorrect").textContent = G.correct + "/" + TOTAL; $("sAcc").textContent = acc + "%"; $("sCombo").textContent = G.maxCombo; $("sTime").textContent = fmtT(time);
+  const miss = G.missed.slice();
+  // thêm các từ còn đang rơi (nếu thua) vào danh sách ôn
+  if (!win) { for (const c of G.cards) miss.push(c.w); for (let i = G.spawned; i < G.stage * PER; i++) miss.push(G.queue[i]); }
+  $("reviewWrap").style.display = miss.length ? "block" : "none";
+  $("review").innerHTML = miss.map(w => `<div class="rv"><span class="h">${esc(w.h)}</span><span class="p">${esc(w.py)}</span><span class="m">${esc(w.vi)}</span></div>`).join("");
+  $("endLbTitle").textContent = "🏆 Bảng xếp hạng HSK " + G.lv;
+  updateEndRank(); lbTab = String(G.lv);
+  syncPending().then(pullRemote).then(updateEndRank);
+  field.querySelectorAll(".card,.pop").forEach(n => n.remove());
+  setTimeout(() => show("end"), 700);
+}
+function updateEndRank() {
+  if (!G || !G.entry) return; const e = G.entry;
+  const board = bestPerStudent(allEntries(), e.lv), pos = board.findIndex(r => keyOf(r.name) === keyOf(e.name)) + 1;
+  const isBest = board[pos - 1] && board[pos - 1].id === e.id;
+  $("endRank").innerHTML = `Hạng <b style="color:var(--yellow)">${pos}</b>/${board.length} bảng HSK ${e.lv}` + (isBest ? " · 🌟 <b>Kỷ lục mới của em!</b>" : "") + (G.endBonus ? ` · thưởng mạng +${G.endBonus}` : "") +
+    (ONLINE_DB ? (onlineOK ? " · ✅ đã lưu bảng chung" : " · ⏳ đang gửi điểm…") : "");
+  renderLB($("endLb"), String(e.lv), e.name);
+  updStatus();
+}
+$("btnAgain").onclick = () => startGame(G ? G.name : store.get(NAME_KEY), selLv, selDiff);
+$("btnHome").onclick = () => { setupStart(); show("start"); };
+// btnAgain needs G alive: keep G after finish, only replaced on startGame
+
+/* ================= HIỆU ỨNG MƯA / HẠT ================= */
+const cv = $("rain"), cx = cv.getContext("2d");
+let drops = [], parts = [], DPR = 1;
+function resizeRain() {
+  DPR = Math.min(2, window.devicePixelRatio || 1);
+  cv.width = cv.clientWidth * DPR; cv.height = cv.clientHeight * DPR;
+  const n = Math.round(cv.clientWidth / 9);
+  drops = Array.from({length: n}, () => ({x: Math.random() * cv.clientWidth, y: Math.random() * cv.clientHeight, l: 8 + Math.random() * 18, v: 260 + Math.random() * 420, a: .08 + Math.random() * .18}));
+}
+function burst(x, y) { // toạ độ trong #field -> canvas (field cách top 64px)
+  for (let i = 0; i < 22; i++) { const a = Math.random() * 6.283, s = 60 + Math.random() * 220;
+    parts.push({x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s - 40, life: .7 + Math.random() * .4, t: 0, c: Math.random() < .5 ? "#5fd4ff" : "#4dffa6"}); }
+}
+function rainTick(dt) {
+  const W = cv.clientWidth, H = cv.clientHeight;
+  cx.setTransform(DPR, 0, 0, DPR, 0, 0); cx.clearRect(0, 0, W, H);
+  cx.lineWidth = 1.2;
+  for (const d of drops) {
+    d.y += d.v * dt; if (d.y > H) { d.y = -d.l; d.x = Math.random() * W; }
+    cx.strokeStyle = `rgba(150,190,255,${d.a})`; cx.beginPath(); cx.moveTo(d.x, d.y); cx.lineTo(d.x - 1.5, d.y + d.l); cx.stroke();
+  }
+  for (const p of parts) { p.t += dt; p.vy += 420 * dt; p.x += p.vx * dt; p.y += p.vy * dt; }
+  parts = parts.filter(p => p.t < p.life);
+  for (const p of parts) { cx.globalAlpha = 1 - p.t / p.life; cx.fillStyle = p.c; cx.beginPath(); cx.arc(p.x, p.y, 2.4, 0, 6.283); cx.fill(); }
+  cx.globalAlpha = 1;
+}
+window.addEventListener("resize", () => { if ($("game").classList.contains("active")) resizeRain(); });
+// mưa nền khi chưa chơi/tạm dừng
+setInterval(() => { if ($("game").classList.contains("active") && G && G.state !== "play") rainTick(.016); }, 16);
+
+setupStart(); updStatus();
+const refreshBoard = () => { if ($("start").classList.contains("active")) renderLB($("lbBody"), lbTab, $("nameInput").value); };
+if (ONLINE_DB) { syncPending().then(pullRemote).then(refreshBoard); setInterval(() => { if ($("start").classList.contains("active")) syncPending().then(pullRemote).then(refreshBoard); }, 20000); }
+</script>
+</body>
+</html>
