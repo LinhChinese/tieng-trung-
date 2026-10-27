@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ôn từ vựng tiếng Trung</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:linear-gradient(160deg,#d9eefb,#e3f7ef);color:#24304a;display:flex;justify-content:center;padding:14px}
+.card{width:100%;max-width:480px;background:#fff;border-radius:28px;padding:18px;box-shadow:0 10px 30px #4a8fb533}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:14px;font-weight:700;font-size:13px}
+.pill{padding:7px 13px;border-radius:14px;background:#fff1c9;color:#9a5b00}.pill.g{background:#e6f7ef;color:#0f9d6b}
+.hero{border-radius:22px;padding:22px 12px;text-align:center;background:linear-gradient(135deg,#c9e6fb,#cdf1e1);margin-bottom:14px}
+.hero small{font-weight:800;letter-spacing:1px;color:#6a7a96}.hero .big{font-size:76px;font-weight:800;line-height:1.2}.hero .vi{font-size:30px;font-weight:800;padding:14px 6px}
+.opt{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;text-align:left;background:#fff;border:3px solid #eef2f7;border-radius:18px;padding:14px 16px;margin-bottom:10px;font-size:16px;font-weight:700;color:#24304a;cursor:pointer;font-family:inherit}
+.opt .h{font-size:22px;margin-right:6px}.opt .ic{flex:none;width:24px;height:24px;border-radius:50%;border:2px solid #c9d1de;display:grid;place-items:center;color:#fff;font-size:13px}
+.opt.ok{border-color:#6ee0b4;background:#eefaf4}.opt.ok .ic{background:#10b981;border-color:#10b981}
+.opt.bad{border-color:#ff9aa8;background:#fff0f2}.opt.bad .ic{background:#f43f5e;border-color:#f43f5e}
+.opt:disabled{cursor:default}
+.fb{border-radius:18px;padding:12px 16px;margin-bottom:10px;font-weight:700}.fb.ok{background:#eefaf4;color:#0f9d6b}.fb.bad{background:#fff0f2;color:#e11d48}.fb span{display:block;color:#24304a;font-weight:600;font-size:14px;margin-top:3px}
+.btn{width:100%;border:0;border-radius:16px;padding:15px;font-size:16px;font-weight:800;background:#4fc3a1;color:#fff;cursor:pointer;font-family:inherit}.btn:disabled{background:#e3e8f0;color:#9aa6bb;cursor:default}.btn.s{background:#eef2f7;color:#24304a;margin-top:10px}
+label{display:block;font-weight:800;font-size:13px;margin:14px 0 6px}input,select{width:100%;padding:13px;border:3px solid #eef2f7;border-radius:14px;font-size:16px;font-family:inherit}
+.seg{display:flex;gap:6px}.seg button{flex:1;padding:11px 4px;border:3px solid #eef2f7;background:#fff;border-radius:14px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit}.seg .on{border-color:#4fc3a1;background:#eefaf4}
+h1{font-size:20px;text-align:center;margin:6px 0 2px}.sub{text-align:center;color:#6a7a96;font-size:14px;margin:0 0 6px}.err{color:#e11d48;font-size:13px;font-weight:700;margin-top:8px;min-height:18px}
+.res{text-align:center}.res .row{display:flex;justify-content:space-between;padding:9px 4px;border-bottom:1px dashed #dde4ee;font-size:15px;text-align:left}.res .row b{text-align:right}
+.msg{background:#eefaf4;color:#0f9d6b;border-radius:16px;padding:12px;margin:14px 0;font-weight:700;font-size:14px}
+.rv{text-align:left;margin-top:10px;font-size:15px}.rv div{padding:6px 0;border-bottom:1px dashed #dde4ee}
+</style></head><body><div class="card" id="app"></div>
+<script>
+/* ============ DỮ LIỆU TỪ VỰNG ============
+ Định dạng: "chữ Hán|pinyin|nghĩa". Thêm "?" ở cuối nghĩa = cần giáo viên kiểm tra.
+ Muốn thêm bài: thêm một mục vào LESSONS (cùng cấu trúc). */
+const LESSONS = {
+ "Quyển 1 — Bài 1": [
+"我|wǒ|tôi","你|nǐ|bạn, anh/chị","您|nín|ngài, ông/bà","他|tā|anh ấy, ông ấy","她|tā|cô ấy, bà ấy","女|nǚ|nữ, con gái","它|tā|nó (đồ vật, con vật)","们|men|các, chúng (hậu tố số nhiều)","老师|lǎoshī|giáo viên","好|hǎo|tốt, khỏe","叫|jiào|gọi, tên là","名字|míngzi|tên","字|zì|chữ","什么|shénme|cái gì, gì","是|shì|là","哪|nǎ|nào, đâu","国|guó|nước, quốc gia","人|rén|người","越南|Yuènán|Việt Nam","请|qǐng|mời, xin","坐|zuò|ngồi","谢谢|xièxie|cảm ơn","不用谢|búyòng xiè|không cần cảm ơn","不用|búyòng|không cần","不客气|bú kèqi|đừng khách sáo","李白|Lǐ Bái|Lý Bạch (tên người)","法国|Fǎguó|nước Pháp","吗|ma|trợ từ nghi vấn (không?)","不|bù|không","学|xué|học","同|tóng|cùng, giống","学生|xuésheng|học sinh","问|wèn|hỏi","请问|qǐngwèn|xin hỏi","对不起|duìbuqǐ|xin lỗi","不好意思|bù hǎoyìsi|ngại quá, xin lỗi","没关系|méi guānxi|không sao","没事|méi shì|không có gì, không sao","姓|xìng|họ","姓名|xìngmíng|họ và tên","呢|ne|trợ từ (còn…thì sao?)","再见|zàijiàn|tạm biệt","美国|Měiguó|nước Mỹ"],
+ "Quyển 1 — Bài 2": [
+"早|zǎo|sớm, chào buổi sáng","早上|zǎoshang|buổi sáng sớm","这|zhè|này, đây","那|nà|kia, đó","手|shǒu|tay","手机|shǒujī|điện thoại di động","对|duì|đúng","新|xīn|mới","旧|jiù|cũ","很|hěn|rất","看|kàn|xem, nhìn","好看|hǎokàn|đẹp, dễ nhìn","喜欢|xǐhuan|thích","也|yě|cũng","颜色|yánsè|màu sắc","黑色|hēisè|màu đen","白色|báisè|màu trắng","谁|shéi|ai","知道|zhīdào|biết","晚|wǎn|muộn","上|shàng|trên, lên","下|xià|dưới, xuống","中|zhōng|giữa, trong","晚上|wǎnshang|buổi tối","上午|shàngwǔ|buổi sáng (trước 12h)","中午|zhōngwǔ|buổi trưa","下午|xiàwǔ|buổi chiều","晚安|wǎn'ān|chúc ngủ ngon","这些|zhèxiē|những cái này","那些|nàxiē|những cái kia","都|dōu|đều, tất cả","书|shū|sách","汉语|Hànyǔ|tiếng Hán","英语|Yīngyǔ|tiếng Anh","中文|Zhōngwén|tiếng Trung","汉字|hànzì|chữ Hán","课本|kèběn|sách giáo khoa","难|nán|khó","错|cuò|sai","不错|búcuò|không tệ, khá tốt","没错|méi cuò|không sai"],
+ "Quyển 1 — Bài 3": [
+"家|jiā|nhà, gia đình","照片|zhàopiàn|ảnh, bức ảnh","爸爸|bàba|bố, ba","妈妈|māma|mẹ","哥哥|gēge|anh trai","小心|xiǎoxīn|cẩn thận","姐姐|jiějie|chị gái","妹妹|mèimei|em gái","老公|lǎogōng|chồng","老婆|lǎopo|vợ","女儿|nǚ'ér|con gái","儿子|érzi|con trai","弟弟|dìdi|em trai","有|yǒu|có","没有|méiyǒu|không có","个|gè|cái, con, người (lượng từ chung)","口|kǒu|miệng, người trong gia đình (lượng từ)","几|jǐ|mấy, bao nhiêu (số nhỏ)","张|zhāng|tờ, tấm (lượng từ)","本|běn|quyển (lượng từ)","和|hé|và","跟|gēn|với, cùng","啊|a|trợ từ ngữ khí (à, ạ)","介绍|jièshào|giới thiệu","一下|yíxià|một chút, thử","朋友|péngyou|bạn bè","认识|rènshi|quen biết","高兴|gāoxìng|vui, vui mừng","难过|nánguò|buồn","学习|xuéxí|học tập","学校|xuéxiào|trường học","小学|xiǎoxué|tiểu học","中学|zhōngxué|trung học","初中|chūzhōng|trung học cơ sở","高中|gāozhōng|trung học phổ thông","大学|dàxué|đại học","医学|yīxué|y học","医生|yīshēng|bác sĩ","医院|yīyuàn|bệnh viện","真|zhēn|thật, thật sự","可爱|kě'ài|dễ thương","爱|ài|yêu","吧|ba|trợ từ (nhé, đi nào)"],
+ "Quyển 1 — Bài 4": [
+"睡觉|shuìjiào|ngủ","睡午觉|shuì wǔjiào|ngủ trưa","睡懒觉|shuì lǎnjiào|ngủ nướng","懒|lǎn|lười","还|hái|vẫn, còn","还|huán|trả lại","天|tiān|ngày, trời","今天|jīntiān|hôm nay","明天|míngtiān|ngày mai","昨天|zuótiān|hôm qua","点|diǎn|giờ (chỉ thời gian), điểm","分|fēn|phút, phân","分钟|fēnzhōng|phút (khoảng thời gian)","课|kè|bài học, môn học","上课|shàngkè|vào học, lên lớp","下课|xiàkè|tan học","去|qù|đi","电影|diànyǐng|phim, điện ảnh","电影院|diànyǐngyuàn|rạp chiếu phim","电视剧|diànshìjù|phim truyền hình","电视|diànshì|ti vi","了|le|trợ từ (đã, rồi)","开始|kāishǐ|bắt đầu","现在|xiànzài|bây giờ","半|bàn|nửa, rưỡi","刻|kè|mười lăm phút, khắc","差|chà|thiếu, kém","想|xiǎng|muốn, nhớ","喝|hē|uống","吃|chī|ăn","咖啡|kāfēi|cà phê","店|diàn|cửa hàng, tiệm","奶|nǎi|sữa","茶|chá|trà","奶茶|nǎichá|trà sữa","啤酒|píjiǔ|bia","可乐|kělè|coca, nước ngọt có ga","酒|jiǔ|rượu","杯|bēi|cốc, ly","瓶|píng|chai, bình","买|mǎi|mua","洗|xǐ|rửa, giặt, tắm","洗手间|xǐshǒujiān|nhà vệ sinh"],
+ "Quyển 1 — Bài 5": [
+"在|zài|ở, tại, đang","工作|gōngzuò|công việc, làm việc","公司|gōngsī|công ty","银行|yínháng|ngân hàng","理发店|lǐfàdiàn|tiệm cắt tóc","办公楼|bàngōnglóu|tòa nhà văn phòng","办公|bàngōng|làm việc văn phòng","楼|lóu|tòa nhà, tầng","办公室|bàngōngshì|phòng làm việc","室|shì|phòng","宿舍|sùshè|ký túc xá","舍友|shèyǒu|bạn cùng ký túc xá","室友|shìyǒu|bạn cùng phòng","图书馆|túshūguǎn|thư viện","食堂|shítáng|nhà ăn, căng tin","留学生|liúxuéshēng|lưu học sinh, du học sinh","哪儿|nǎr|ở đâu","哪里|nǎli|ở đâu","那儿|nàr|ở đó, chỗ đó","那里|nàli|ở đó, chỗ đó","这儿|zhèr|ở đây","这里|zhèli|ở đây","饭|fàn|cơm, bữa ăn","早饭|zǎofàn|bữa sáng","午饭|wǔfàn|bữa trưa","晚饭|wǎnfàn|bữa tối","外卖|wàimài|đồ ăn giao tận nơi","东边|dōngbian|phía đông","西边|xībian|phía tây","南边|nánbian|phía nam","北边|běibian|phía bắc","前边|qiánbian|phía trước","后边|hòubian|phía sau","周末|zhōumò|cuối tuần","上周|shàngzhōu|tuần trước","下周|xiàzhōu|tuần sau","一起|yìqǐ|cùng nhau","吧|ba|trợ từ (nhé, đi nào)","来|lái|đến, tới","玩儿|wánr|chơi","离|lí|cách, rời","远|yuǎn|xa","近|jìn|gần","公里|gōnglǐ|ki-lô-mét","号|hào|ngày (trong tháng), số","房间号|fángjiānhào|số phòng","电话号|diànhuàhào|số điện thoại","多少|duōshao|bao nhiêu","教室|jiàoshì|phòng học, lớp học","等|děng|đợi, chờ","花|huā|hoa, tiêu (tiền)","花园|huāyuán|vườn hoa","星期|xīngqī|tuần, thứ","礼拜|lǐbài|tuần lễ, thứ (khẩu ngữ)"],
+ "Quyển 1 — Bài 6": [
+"丈夫|zhàngfu|chồng","妻子|qīzi|vợ","夫妻|fūqī|vợ chồng","冰箱|bīngxiāng|tủ lạnh","台|tái|cái, chiếc (lượng từ máy móc)","里|lǐ|trong, bên trong","外|wài|ngoài, bên ngoài","心里|xīnlǐ|trong lòng","水果|shuǐguǒ|hoa quả, trái cây","苹果|píngguǒ|táo","芒果|mángguǒ|xoài","梨|lí|lê","草莓|cǎoméi|dâu tây","西瓜|xīguā|dưa hấu","超市|chāoshì|siêu thị","东西|dōngxi|đồ, đồ vật","日用品|rìyòngpǐn|đồ dùng hằng ngày","牛奶|niúnǎi|sữa bò","牛|niú|bò","包|bāo|túi, gói","书包|shūbāo|cặp sách","钱包|qiánbāo|ví tiền","钱|qián|tiền","斤|jīn|cân (500g)","公斤|gōngjīn|ki-lô-gam","块|kuài|đồng (khẩu ngữ)","元|yuán|đồng, nhân dân tệ","一共|yígòng|tổng cộng","贵|guì|đắt","便宜|piányi|rẻ","太|tài|quá, rất","走|zǒu|đi","一点儿|yìdiǎnr|một chút","能|néng|có thể, được","种|zhǒng|loại, thứ","红|hóng|đỏ","黄|huáng|vàng","蓝|lán|xanh dương","绿|lǜ|xanh lá","还是|háishi|hay là","酸|suān|chua","甜|tián|ngọt","苦|kǔ|đắng","辣|là|cay","毛|máo|hào (1/10 đồng)","分|fēn|xu (1/100 đồng)","找|zhǎo|tìm, thối lại (tiền)"],
+ "Quyển 1 — Bài 7": [
+"一般|yìbān|thường, nói chung","做|zuò|làm","工作|gōngzuò|công việc, làm việc","经常|jīngcháng|thường xuyên","动物园|dòngwùyuán|sở thú","动物|dòngwù|động vật","房间|fángjiān|phòng","听|tīng|nghe","读|dú|đọc","写|xiě|viết","说|shuō|nói","作业|zuòyè|bài tập","旅行|lǚxíng|du lịch","时候|shíhou|lúc, khi","游泳|yóuyǒng|bơi","游泳馆|yóuyǒngguǎn|bể bơi, nhà thi đấu bơi","卡|kǎ|thẻ","身份证|shēnfènzhèng|chứng minh thư, căn cước","办|bàn|làm, xử lý (thủ tục)","已经|yǐjīng|đã, rồi","运动|yùndòng|vận động, thể thao","锻炼|duànliàn|rèn luyện","跑步|pǎobù|chạy bộ","爬山|páshān|leo núi","踢足球|tī zúqiú|đá bóng","地球|dìqiú|Trái Đất","篮球|lánqiú|bóng rổ","羽毛球|yǔmáoqiú|cầu lông","网球|wǎngqiú|quần vợt, tennis","排球|páiqiú|bóng chuyền","打|dǎ|đánh, chơi (bóng)","每|měi|mỗi","习惯|xíguàn|thói quen, quen","或者|huòzhě|hoặc","见面|jiànmiàn|gặp mặt"],
+ "Quyển 1 — Bài 8": [
+"快|kuài|nhanh, sắp","该|gāi|nên, phải","吃饭|chīfàn|ăn cơm","饿|è|đói","饱|bǎo|no","别|bié|đừng","今天|jīntiān|hôm nay","外面|wàimiàn|bên ngoài","昨天|zuótiān|hôm qua","明天|míngtiān|ngày mai","给|gěi|cho, đưa","饭店|fàndiàn|nhà hàng, quán ăn","说|shuō|nói","尝|cháng|nếm, thử","怎么样|zěnmeyàng|thế nào","走路|zǒulù|đi bộ","路|lù|đường","打电话|dǎ diànhuà|gọi điện thoại","喂|wèi|a lô","时间|shíjiān|thời gian","事|shì|việc, chuyện","水果店|shuǐguǒdiàn|tiệm hoa quả","旁边|pángbiān|bên cạnh","左边|zuǒbian|bên trái","右边|yòubian|bên phải","爱人|àiren|vợ/chồng","对象|duìxiàng|người yêu, đối tượng","男朋友|nánpéngyou|bạn trai","女朋友|nǚpéngyou|bạn gái","出|chū|ra","进|jìn|vào","出发|chūfā|xuất phát","地方|dìfang|nơi, chỗ","回来|huílai|trở về"],
+ "Quyển 1 — Bài 9": [
+"快|kuài|sắp, nhanh","迟到|chídào|đến muộn, trễ","最近|zuìjìn|gần đây","天气|tiānqì|thời tiết","预报|yùbào|dự báo","晴|qíng|nắng, trời quang","阴|yīn|âm u, râm","晴天|qíngtiān|trời nắng","阴天|yīntiān|trời âm u","雨|yǔ|mưa","下雨|xiàyǔ|trời mưa","下大雨|xià dàyǔ|mưa to","下小雨|xià xiǎoyǔ|mưa nhỏ","这几天|zhè jǐ tiān|mấy ngày nay","风|fēng|gió","刮风|guāfēng|nổi gió","热|rè|nóng","冷|lěng|lạnh","死|sǐ|chết, (…) chết đi được","温度|wēndù|nhiệt độ","比|bǐ|so với, hơn","日|rì|ngày, mặt trời","月|yuè|tháng, mặt trăng","年|nián|năm","季节|jìjié|mùa","节日|jiérì|ngày lễ","节目|jiémù|chương trình, tiết mục","春天|chūntiān|mùa xuân","夏天|xiàtiān|mùa hè","秋天|qiūtiān|mùa thu","冬天|dōngtiān|mùa đông","雨季|yǔjì|mùa mưa","旱季|hànjì|mùa khô","干杯|gānbēi|cạn ly","回南天|huínántiān|mùa nồm","为什么|wèishénme|tại sao","因为|yīnwèi|bởi vì","所以|suǒyǐ|cho nên","暖和|nuǎnhuo|ấm áp","凉快|liángkuai|mát mẻ","风景|fēngjǐng|phong cảnh","漂亮|piàoliang|đẹp","花|huā|hoa","开|kāi|nở, mở","树|shù|cây","下雪|xiàxuě|tuyết rơi","更|gèng|càng, hơn nữa"],
+ "Quyển 1 — Bài 10": [
+"参加|cānjiā|tham gia","参观|cānguān|tham quan","队|duì|đội","自己|zìjǐ|tự mình, bản thân","个子|gèzi|vóc dáng, chiều cao","米|mǐ|mét","高|gāo|cao","矮|ǎi|thấp, lùn","今年|jīnnián|năm nay","明年|míngnián|sang năm","去年|qùnián|năm ngoái","岁|suì|tuổi","长|cháng|dài","短|duǎn|ngắn","久|jiǔ|lâu","重|zhòng|nặng","轻|qīng|nhẹ","公里|gōnglǐ|ki-lô-mét","跟|gēn|với, cùng","练习|liànxí|luyện tập","胖|pàng|béo","瘦|shòu|gầy","小时|xiǎoshí|giờ đồng hồ, tiếng","正在|zhèngzài|đang","找|zhǎo|tìm","比赛|bǐsài|thi đấu, cuộc thi","准备|zhǔnbèi|chuẩn bị","老家|lǎojiā|quê nhà","回|huí|về, quay về","带|dài|mang, dẫn theo","雨伞|yǔsǎn|ô, dù","对|duì|đối với","感兴趣|gǎn xìngqù|hứng thú, quan tâm","有趣|yǒuqù|thú vị","有意思|yǒu yìsi|thú vị","体育|tǐyù|thể dục, thể thao","特别|tèbié|đặc biệt, rất","体育馆|tǐyùguǎn|nhà thi đấu","欢迎|huānyíng|chào đón, hoan nghênh","接|jiē|đón, nhận","先|xiān|trước, trước tiên","然后|ránhòu|sau đó"],
+ "Quyển 1 — Bài 11": [
+"孩子|háizi|đứa trẻ, con","舒服|shūfu|dễ chịu, khỏe","难受|nánshòu|khó chịu, khó ở","难过|nánguò|buồn","感冒|gǎnmào|cảm cúm","病|bìng|bệnh","生病|shēngbìng|bị bệnh","发烧|fāshāo|sốt","身体|shēntǐ|cơ thể, sức khỏe","咳嗽|késou|ho","鼻子|bízi|mũi","流鼻涕|liú bítì|chảy nước mũi","流|liú|chảy","看医生|kàn yīshēng|đi khám bác sĩ","看病|kànbìng|khám bệnh","病人|bìngrén|bệnh nhân","看病人|kàn bìngrén|thăm người bệnh","药|yào|thuốc","药店|yàodiàn|hiệu thuốc","开药|kāiyào|kê thuốc","药方|yàofāng|đơn thuốc","吃药|chīyào|uống thuốc","次|cì|lần","遍|biàn|lần, lượt (cả quá trình)","要|yào|muốn, cần, phải","说话|shuōhuà|nói chuyện","打针|dǎzhēn|tiêm","主意|zhǔyi|ý kiến, chủ ý","休息|xiūxi|nghỉ ngơi","穿|chuān|mặc","衣服|yīfu|quần áo","件|jiàn|cái, chiếc (lượng từ quần áo)","但是|dànshì|nhưng","不过|búguò|nhưng","可是|kěshì|nhưng","头|tóu|đầu","头发|tóufa|tóc","疼|téng|đau","头疼|tóuténg|đau đầu","考|kǎo|thi","考试|kǎoshì|kỳ thi, thi cử","健康|jiànkāng|khỏe mạnh, sức khỏe","重要|zhòngyào|quan trọng","有一点儿|yǒu yìdiǎnr|hơi, một chút","让|ràng|để, bảo, cho phép","得|děi|phải"],
+ "Quyển 1 — Bài 12": [
+"看见|kànjiàn|nhìn thấy","忙|máng|bận","非常|fēicháng|vô cùng, rất","家务|jiāwù|việc nhà","复习|fùxí|ôn tập","生词|shēngcí|từ mới","课文|kèwén|bài khóa","完|wán|xong, hết","车|chē|xe","辆|liàng|chiếc (lượng từ xe)","飞|fēi|bay","飞机|fēijī|máy bay","机场|jīchǎng|sân bay","火车|huǒchē|tàu hỏa","火车站|huǒchēzhàn|ga tàu hỏa","出租车|chūzūchē|taxi","自行车|zìxíngchē|xe đạp","电车|diànchē|xe điện","摩托车|mótuōchē|xe máy","广场|guǎngchǎng|quảng trường","汽车|qìchē|ô tô","公交车|gōngjiāochē|xe buýt","公共汽车|gōnggòng qìchē|xe buýt","地|dì|đất, mặt đất","地铁|dìtiě|tàu điện ngầm","高铁|gāotiě|tàu cao tốc","船|chuán|thuyền, tàu thủy","打车|dǎchē|bắt taxi","票|piào|vé","到|dào|đến","久|jiǔ|lâu","好久|hǎojiǔ|rất lâu","小时|xiǎoshí|giờ đồng hồ, tiếng","住|zhù|ở, sống","来自|láizì|đến từ","公司|gōngsī|công ty","站|zhàn|ga, trạm","方便|fāngbiàn|thuận tiện","地图|dìtú|bản đồ","世界|shìjiè|thế giới","网|wǎng|mạng, lưới","上网|shàngwǎng|lên mạng","购物|gòuwù|mua sắm","聊天儿|liáotiānr|trò chuyện","宾馆|bīnguǎn|khách sạn","怎么|zěnme|thế nào, sao","就|jiù|thì, ngay"],
+ "Quyển 1 — Bài 13": [
+"包间|bāojiān|phòng riêng (nhà hàng)","订|dìng|đặt","位|wèi|vị (lượng từ của người)","先生|xiānsheng|ông, ngài, tiên sinh","菜|cài|món ăn, rau","菜单|càidān|thực đơn","青菜|qīngcài|rau xanh","羊肉|yángròu|thịt dê, thịt cừu","鱼|yú|cá","条|tiáo|con, sợi (lượng từ vật dài)","鸡蛋|jīdàn|trứng gà","烤鸭|kǎoyā|vịt quay","牛|niú|bò","狗|gǒu|chó","猫|māo|mèo","饮料|yǐnliào|đồ uống","果汁|guǒzhī|nước ép","点|diǎn|gọi (món)","行|xíng|được","最|zuì|nhất","生日|shēngrì|sinh nhật","快乐|kuàilè|vui vẻ","祝|zhù|chúc","过|guò|qua, đón (sinh nhật)","送|sòng|tặng, tiễn","礼物|lǐwù|quà","客气|kèqi|khách sáo","寿面|shòumiàn|mì trường thọ","面条|miàntiáo|mì sợi","蛋糕|dàngāo|bánh kem, bánh ngọt","会|huì|biết, sẽ","碗|wǎn|bát","盘子|pánzi|đĩa","筷子|kuàizi|đũa","告诉|gàosu|nói cho biết","服务员|fúwùyuán|nhân viên phục vụ"],
+ "Quyển 1 — Bài 14": [
+"桌子|zhuōzi|bàn","椅子|yǐzi|ghế","灯|dēng|đèn","开灯|kāidēng|bật đèn","关灯|guāndēng|tắt đèn","粉色|fěnsè|màu hồng","觉得|juéde|cảm thấy","打算|dǎsuàn|dự định","唱歌|chànggē|hát","首|shǒu|bài (lượng từ bài hát)","跳舞|tiàowǔ|nhảy múa","没问题|méi wèntí|không vấn đề","当然|dāngrán|đương nhiên","发现|fāxiàn|phát hiện","错|cuò|sai","懂|dǒng|hiểu","查|chá|tra, kiểm tra","聊天|liáotiān|trò chuyện","家|jiā|nhà, gia đình","环境|huánjìng|môi trường","生活|shēnghuó|cuộc sống, sinh hoạt","热情|rèqíng|nhiệt tình","才|cái|mới, chỉ mới"],
+ "Quyển 1 — Bài 15": [
+"干|gàn|làm","打扫|dǎsǎo|quét dọn","条|tiáo|con, sợi (lượng từ vật dài)","裙子|qúnzi|váy","裤子|kùzi|quần","蛇|shé|rắn","河|hé|sông","路|lù|đường","样子|yàngzi|kiểu dáng, dáng vẻ","还可以|hái kěyǐ|cũng được","适合|shìhé|phù hợp","说话|shuōhuà|nói chuyện","话|huà|lời nói, câu chuyện","出差|chūchāi|đi công tác","比较|bǐjiào|tương đối, so sánh","衬衫|chènshān|áo sơ mi","鞋子|xiézi|giày","拖鞋|tuōxié|dép lê","运动鞋|yùndòngxié|giày thể thao","高跟鞋|gāogēnxié|giày cao gót","皮鞋|píxié|giày da","平时|píngshí|thường ngày","能|néng|có thể, được","帮|bāng|giúp đỡ","帮助|bāngzhù|giúp đỡ","帮忙|bāngmáng|giúp đỡ","可以|kěyǐ|có thể, được"]
+};
+/* ============================================ */
+const $=s=>document.querySelector(s),app=$('#app');
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function parse(list){const m=new Map();list.forEach(r=>{const p=r.split('|');if(p.length<3||!p[1]||!p[2])return;const k=p[0]+'|'+p[1];if(!m.has(k))m.set(k,{h:p[0],p:p[1],m:p[2].replace(/\s*\?$/,''),chk:/\?$/.test(p[2])})});return[...m.values()]}
+const lessonNames=Object.keys(LESSONS);let S={};
+
+function start(err=''){
+ app.innerHTML=`<h1>🌸 Ôn từ vựng tiếng Trung</h1><p class="sub">Trắc nghiệm 4 đáp án</p>
+ <label>Họ và tên</label><input id="nm" placeholder="Nhập họ tên của em" maxlength="50" autocomplete="off">
+ <label>Bài học</label><select id="ls">${lessonNames.map(n=>`<option>${n}</option>`).join('')}</select>
+ <label>Chiều trắc nghiệm</label><div class="seg" id="sg"><button data-m="A" class="on">Hán → Nghĩa</button><button data-m="B">Nghĩa → Hán</button><button data-m="M">Kết hợp</button></div>
+ <div class="err" id="er">${err}</div><button class="btn" id="go">Bắt đầu</button>`;
+ let mode='A';
+ document.querySelectorAll('#sg button').forEach(b=>b.onclick=()=>{mode=b.dataset.m;document.querySelectorAll('#sg button').forEach(x=>x.classList.toggle('on',x===b))});
+ $('#go').onclick=()=>{
+  const name=$('#nm').value.trim().replace(/\s+/g,' ');
+  if(name.length<2||!/\p{L}/u.test(name))return $('#er').textContent='Vui lòng nhập họ tên hợp lệ.';
+  const ln=$('#ls').value,words=parse(LESSONS[ln]);
+  if(new Set(words.map(w=>w.m)).size<4||words.length<4)return $('#er').textContent='Bài này chưa đủ dữ liệu để tạo câu hỏi (cần ít nhất 4 từ khác nhau).';
+  S={name,ln,mode,words,total:words.length,queue:shuffle(words),i:0,round:0,wrong:new Map(),next:[],t0:Date.now(),code:Math.random().toString(36).slice(2,8).toUpperCase()};
+  ask();
+ };
+}
+function ask(){
+ const w=S.queue[S.i],dir=S.mode==='M'?(Math.random()<.5?'A':'B'):S.mode;
+ const seen=new Set([w.m]),ds=[];
+ const cand=shuffle(S.words).filter(x=>x.h!==w.h).sort((a,b)=>Math.abs(a.h.length-w.h.length)-Math.abs(b.h.length-w.h.length)); /* ưu tiên đáp án nhiễu cùng số âm tiết (số chữ Hán) với từ hỏi */
+ for(const x of cand){if(!seen.has(x.m)){seen.add(x.m);ds.push(x);if(ds.length==3)break}}
+ const opts=shuffle([w,...ds]);S.cur={w,done:false};
+ const lab=x=>dir==='A'?`<span>${esc(x.p)} — ${esc(x.m)}</span>`:`<span><span class="h">${esc(x.h)}</span>${esc(x.p)}</span>`;
+ const prog=S.round?`Ôn lại ${S.i+1}/${S.queue.length}`:`${S.i+1}/${S.queue.length}`;
+ app.innerHTML=`<div class="top"><span class="pill g">${S.round?'🔁 Ôn lại':'✦ Làm bài'}</span><span class="pill">${esc(S.ln.split('— ')[1])}</span><span class="pill">${prog}</span></div>
+ <div class="hero"><small>${S.round?'TỪ CẦN ÔN':'TỪ MỚI'}</small>${dir==='A'?`<div class="big">${esc(w.h)}</div>`:`<div class="vi">${esc(w.m)}</div>`}</div>
+ <div id="os">${opts.map((o,k)=>`<button class="opt" data-k="${k}">${lab(o)}<i class="ic"></i></button>`).join('')}</div><div id="fb"></div>
+ <button class="btn" id="nx" disabled>Tiếp tục →</button>`;
+ document.querySelectorAll('.opt').forEach((b,k)=>b.onclick=()=>pick(k,opts,dir));
+}
+function pick(k,opts,dir){
+ if(S.cur.done)return;S.cur.done=true;const w=S.cur.w,right=opts[k]===w;
+ document.querySelectorAll('.opt').forEach((b,j)=>{b.disabled=true;if(opts[j]===w){b.classList.add('ok');b.querySelector('.ic').textContent='✓'}else if(j===k){b.classList.add('bad');b.querySelector('.ic').textContent='✕'}});
+ const full=`${w.h} — ${w.p} — ${w.m}`;
+ $('#fb').innerHTML=`<div class="fb ${right?'ok':'bad'}">${right?'✓ Chính xác!':'✕ Chưa đúng'}<span>Đáp án đúng: ${esc(full)}</span></div>`;
+ if(!right){if(S.round===0)S.wrong.set(w.h+w.p,w);S.next.push(w)}
+ const nx=$('#nx');nx.disabled=false;nx.onclick=advance;
+}
+function advance(){
+ S.i++;
+ if(S.i>=S.queue.length){
+  if(S.next.length){S.queue=shuffle(S.next);S.next=[];S.i=0;S.round++}else return finish();
+ }
+ ask();
+}
+function finish(){
+ const sec=Math.round((Date.now()-S.t0)/1000),n=S.wrong.size,d=new Date(),p=x=>String(x).padStart(2,'0');
+ const ds=`${p(d.getHours())}:${p(d.getMinutes())} — ${p(d.getDate())}/${p(d.getMonth()+1)}/${d.getFullYear()}`;
+ app.innerHTML=`<div class="res"><h1>🎉 CHÚC MỪNG BẠN ĐÃ HOÀN THÀNH BÀI ÔN TỪ VỰNG!</h1>
+ <div class="row"><span>Họ tên</span><b>${esc(S.name)}</b></div><div class="row"><span>Bài</span><b>${esc(S.ln)}</b></div>
+ <div class="row"><span>Chiều</span><b>${{A:'Hán → Nghĩa',B:'Nghĩa → Hán',M:'Kết hợp'}[S.mode]}</b></div>
+ <div class="row"><span>Tổng số từ</span><b>${S.total}</b></div>
+ <div class="row"><span>Đã nhớ ngay</span><b style="color:#0f9d6b">${S.total-n}/${S.total} từ</b></div>
+ <div class="row"><span>Cần ôn thêm</span><b style="color:#e11d48">${n}/${S.total} từ</b></div>
+ <div class="row"><span>Thời gian</span><b>${p(sec/60|0)} phút ${p(sec%60)} giây</b></div>
+ <div class="row"><span>Hoàn thành lúc</span><b>${ds}</b></div><div class="row"><span>Mã lượt làm bài</span><b>${S.code}</b></div>
+ <div class="msg">${n?'Bạn đã trả lời đúng toàn bộ các từ cần ôn lại. Hãy tiếp tục luyện tập để ghi nhớ từ vựng tốt hơn!':'Tuyệt vời! Bạn nhớ đúng tất cả các từ ngay lần đầu!'}</div>
+ ${n?'<button class="btn s" id="vw">Xem các từ cần ôn</button><div id="rv"></div>':''}
+ <button class="btn s" id="again">Làm lượt mới</button></div>`;
+ const v=$('#vw');if(v)v.onclick=()=>{$('#rv').innerHTML='<div class="rv">'+[...S.wrong.values()].map(w=>`<div>${esc(w.h)} — ${esc(w.p)} — ${esc(w.m)}</div>`).join('')+'</div>';v.remove()};
+ $('#again').onclick=()=>start();
+}
+start();
+</script></body></html>
