@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ôn từ vựng tiếng Trung — Quyển 3</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:linear-gradient(160deg,#d9eefb,#e3f7ef);color:#24304a;display:flex;justify-content:center;padding:14px}
+.card{width:100%;max-width:480px;background:#fff;border-radius:28px;padding:18px;box-shadow:0 10px 30px #4a8fb533}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:14px;font-weight:700;font-size:13px}
+.pill{padding:7px 13px;border-radius:14px;background:#fff1c9;color:#9a5b00}.pill.g{background:#e6f7ef;color:#0f9d6b}
+.hero{border-radius:22px;padding:22px 12px;text-align:center;background:linear-gradient(135deg,#c9e6fb,#cdf1e1);margin-bottom:14px}
+.hero small{font-weight:800;letter-spacing:1px;color:#6a7a96}.hero .big{font-size:76px;font-weight:800;line-height:1.2}.hero .vi{font-size:30px;font-weight:800;padding:14px 6px}
+.opt{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;text-align:left;background:#fff;border:3px solid #eef2f7;border-radius:18px;padding:14px 16px;margin-bottom:10px;font-size:16px;font-weight:700;color:#24304a;cursor:pointer;font-family:inherit}
+.opt .h{font-size:22px;margin-right:6px}.opt .ic{flex:none;width:24px;height:24px;border-radius:50%;border:2px solid #c9d1de;display:grid;place-items:center;color:#fff;font-size:13px}
+.opt.ok{border-color:#6ee0b4;background:#eefaf4}.opt.ok .ic{background:#10b981;border-color:#10b981}
+.opt.bad{border-color:#ff9aa8;background:#fff0f2}.opt.bad .ic{background:#f43f5e;border-color:#f43f5e}
+.opt:disabled{cursor:default}
+.fb{border-radius:18px;padding:12px 16px;margin-bottom:10px;font-weight:700}.fb.ok{background:#eefaf4;color:#0f9d6b}.fb.bad{background:#fff0f2;color:#e11d48}.fb span{display:block;color:#24304a;font-weight:600;font-size:14px;margin-top:3px}
+.btn{width:100%;border:0;border-radius:16px;padding:15px;font-size:16px;font-weight:800;background:#4fc3a1;color:#fff;cursor:pointer;font-family:inherit}.btn:disabled{background:#e3e8f0;color:#9aa6bb;cursor:default}.btn.s{background:#eef2f7;color:#24304a;margin-top:10px}
+label{display:block;font-weight:800;font-size:13px;margin:14px 0 6px}input,select{width:100%;padding:13px;border:3px solid #eef2f7;border-radius:14px;font-size:16px;font-family:inherit}
+.seg{display:flex;gap:6px}.seg button{flex:1;padding:11px 4px;border:3px solid #eef2f7;background:#fff;border-radius:14px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit}.seg .on{border-color:#4fc3a1;background:#eefaf4}
+h1{font-size:20px;text-align:center;margin:6px 0 2px}.sub{text-align:center;color:#6a7a96;font-size:14px;margin:0 0 6px}.err{color:#e11d48;font-size:13px;font-weight:700;margin-top:8px;min-height:18px}
+.res{text-align:center}.res .row{display:flex;justify-content:space-between;padding:9px 4px;border-bottom:1px dashed #dde4ee;font-size:15px;text-align:left}.res .row b{text-align:right}
+.msg{background:#eefaf4;color:#0f9d6b;border-radius:16px;padding:12px;margin:14px 0;font-weight:700;font-size:14px}
+.rv{text-align:left;margin-top:10px;font-size:15px}.rv div{padding:6px 0;border-bottom:1px dashed #dde4ee}
+</style></head><body><div class="card" id="app"></div>
+<script>
+/* ============ DỮ LIỆU TỪ VỰNG ============
+ Định dạng: "chữ Hán|pinyin|nghĩa". Thêm "?" ở cuối nghĩa = cần giáo viên kiểm tra.
+ Muốn thêm bài: thêm một mục vào LESSONS (cùng cấu trúc). */
+const LESSONS = {
+ "Quyển 3 — Bài 1": [
+"护士|hùshi|y tá","体检|tǐjiǎn|khám sức khỏe","精神|jīngshén|tinh thần","一切|yíqiè|tất cả, mọi thứ","所有|suǒyǒu|tất cả, mọi","正常|zhèngcháng|bình thường","异常|yìcháng|bất thường","熬夜|áoyè|thức khuya","亚健康|yàjiànkāng|á khỏe (sức khỏe dưới mức tốt)","规律|guīlǜ|quy luật, đều đặn","规定|guīdìng|quy định","睡眠|shuìmián|giấc ngủ","质量|zhìliàng|chất lượng","改善|gǎishàn|cải thiện","效果|xiàoguǒ|hiệu quả","失眠|shīmián|mất ngủ","失望|shīwàng|thất vọng","按时|ànshí|đúng giờ","项目|xiàngmù|hạng mục, dự án","任务|rènwu|nhiệm vụ","准时|zhǔnshí|đúng giờ","按照|ànzhào|dựa theo, theo","恢复|huīfù|phục hồi","早日|zǎorì|sớm ngày, sớm","引起|yǐnqǐ|gây ra, dẫn đến","连|lián|ngay cả, liền","影响|yǐngxiǎng|ảnh hưởng","增加|zēngjiā|tăng, tăng thêm","出现|chūxiàn|xuất hiện","保证|bǎozhèng|bảo đảm","保持|bǎochí|giữ, duy trì","足够|zúgòu|đủ","一辈子|yíbèizi|cả đời","呼吸|hūxī|hô hấp, thở","空气|kōngqì|không khí","新鲜|xīnxiān|tươi, mới mẻ","乐观|lèguān|lạc quan","态度|tàidù|thái độ","坚持|jiānchí|kiên trì","尽量|jǐnliàng|cố gắng hết mức","美食|měishí|món ngon, ẩm thực","那么|nàme|như thế, vậy thì","一生|yìshēng|cả đời","首先|shǒuxiān|trước hết","其次|qícì|thứ hai, tiếp theo","最后|zuìhòu|cuối cùng"],
+ "Quyển 3 — Bài 2": [
+"乘坐|chéngzuò|đi, ngồi (phương tiện)","乘客|chéngkè|hành khách","并且|bìngqiě|và, hơn nữa","网页|wǎngyè|trang web","网站|wǎngzhàn|website","互联网|hùliánwǎng|mạng Internet","网址|wǎngzhǐ|địa chỉ web","注册|zhùcè|đăng ký","账号|zhànghào|tài khoản","失败|shībài|thất bại","提交|tíjiāo|nộp, gửi","订单|dìngdān|đơn hàng","提前|tíqián|sớm hơn dự định","窗口|chuāngkǒu|quầy, ô cửa","工人|gōngrén|công nhân","窗户|chuānghu|cửa sổ","进行|jìnxíng|tiến hành","危险|wēixiǎn|nguy hiểm","安全|ānquán|an toàn","停止|tíngzhǐ|dừng, ngừng","顺利|shùnlì|thuận lợi","来不及|láibují|không kịp","来得及|láidejí|kịp","候车室|hòuchēshì|phòng chờ xe","发展|fāzhǎn|phát triển","尤其|yóuqí|đặc biệt là","迅速|xùnsù|nhanh chóng","速度|sùdù|tốc độ","成为|chéngwéi|trở thành","优秀|yōuxiù|xuất sắc","优点|yōudiǎn|ưu điểm","名片|míngpiàn|danh thiếp","之所以|zhīsuǒyǐ|sở dĩ","达到|dádào|đạt được","目的|mùdì|mục đích","缺|quē|thiếu","缺点|quēdiǎn|khuyết điểm","配送|pèisòng|giao hàng","预定|yùdìng|đặt trước","费|fèi|phí, chi phí","经济|jīngjì|kinh tế","网速|wǎngsù|tốc độ mạng","脾气|píqi|tính khí","成功|chénggōng|thành công"],
+ "Quyển 3 — Bài 3": [
+"转动|zhuàndòng|xoay, chuyển động","羽毛球|yǔmáoqiú|cầu lông","网球|wǎngqiú|quần vợt, tennis","乒乓球|pīngpāngqiú|bóng bàn","举办|jǔbàn|tổ chức","观众|guānzhòng|khán giả","作为|zuòwéi|với tư cách là, coi như","左右|zuǒyòu|khoảng, trái phải","满|mǎn|đầy, đủ","受|shòu|chịu, nhận","支持|zhīchí|ủng hộ, hỗ trợ","队|duì|đội","赢|yíng|thắng","其实|qíshí|thật ra","技术|jìshù|kỹ thuật","输|shū|thua","果然|guǒrán|quả nhiên","精彩|jīngcǎi|đặc sắc, hay","激动|jīdòng|xúc động, phấn khích","场|chǎng|trận, buổi (lượng từ)","报名|bàomíng|đăng ký","直接|zhíjiē|trực tiếp","接触|jiēchù|tiếp xúc","年龄|niánlíng|tuổi, độ tuổi","性别|xìngbié|giới tính","渐渐|jiànjiàn|dần dần","目的|mùdì|mục đích","积累|jīlěi|tích lũy","经验|jīngyàn|kinh nghiệm","理想|lǐxiǎng|lý tưởng","专业|zhuānyè|chuyên ngành, chuyên nghiệp","运动员|yùndòngyuán|vận động viên","将来|jiānglái|tương lai","代表|dàibiǎo|đại diện","获得|huòdé|đạt được, giành được","冠军|guànjūn|quán quân, vô địch"],
+ "Quyển 3 — Bài 4": [
+"结婚|jiéhūn|kết hôn","以为|yǐwéi|tưởng rằng","新娘|xīnniáng|cô dâu","新郎|xīnláng|chú rể","服装|fúzhuāng|trang phục","传统|chuántǒng|truyền thống","婚纱|hūnshā|váy cưới","肯定|kěndìng|chắc chắn, khẳng định","祝福|zhùfú|chúc phúc","永远|yǒngyuǎn|mãi mãi","幸福|xìngfú|hạnh phúc","表演|biǎoyǎn|biểu diễn","节目|jiémù|tiết mục, chương trình","弹钢琴|tán gāngqín|chơi đàn piano","厉害|lìhai|giỏi, ghê gớm","才艺|cáiyì|tài nghệ, năng khiếu","不仅|bùjǐn|không chỉ","而且|érqiě|mà còn","家庭|jiātíng|gia đình","举行|jǔxíng|tổ chức, cử hành","浪漫|làngmàn|lãng mạn","亲戚|qīnqi|họ hàng","晚|wǎn|muộn","形式|xíngshì|hình thức","丰富|fēngfù|phong phú","海边|hǎibiān|bờ biển","草地|cǎodì|bãi cỏ","流行|liúxíng|thịnh hành, phổ biến","各种|gèzhǒng|các loại, đủ loại","留|liú|lưu lại, giữ lại","回忆|huíyì|hồi tưởng, ký ức","统计|tǒngjì|thống kê","大概|dàgài|đại khái, khoảng"],
+ "Quyển 3 — Bài 5": [
+"依赖|yīlài|phụ thuộc, dựa dẫm","症|zhèng|chứng bệnh","躺|tǎng|nằm","抱|bào|ôm","低|dī|thấp","低头|dītóu|cúi đầu","点头|diǎntóu|gật đầu","摇头|yáotóu|lắc đầu","既|jì|đã, vừa (既…又…)","陪|péi|đi cùng, bầu bạn","干活儿|gànhuór|làm việc","与|yǔ|và, với","生|shēng|sinh, sống","死|sǐ|chết","却|què|nhưng, lại","联系|liánxì|liên lạc","偶尔|ǒu'ěr|thỉnh thoảng","新闻|xīnwén|tin tức","族|zú|tộc, nhóm người","民族|mínzú|dân tộc","酒店|jiǔdiàn|khách sạn","宾馆|bīnguǎn|khách sạn","严重|yánzhòng|nghiêm trọng","好想|hǎo xiǎng|rất muốn","部分|bùfen|bộ phận, một phần","的确|díquè|quả thật, đúng là","智能|zhìnéng|thông minh, trí tuệ (nhân tạo)","智商|zhìshāng|chỉ số IQ, trí tuệ","情商|qíngshāng|chỉ số EQ, trí tuệ cảm xúc","得罪|dézuì|làm mất lòng, đắc tội","世纪|shìjì|thế kỷ","发明|fāmíng|phát minh","排队|páiduì|xếp hàng","厕所|cèsuǒ|nhà vệ sinh","脖子|bózi|cổ","视力|shìlì|thị lực","近视|jìnshì|cận thị","远视|yuǎnshì|viễn thị","交流|jiāoliú|giao lưu, trao đổi","礼貌|lǐmào|lễ phép, lịch sự","社会|shèhuì|xã hội","社牛|shèniú|người hòa đồng, giao tiếp giỏi","社恐|shèkǒng|sợ giao tiếp xã hội","使|shǐ|khiến, làm cho"],
+ "Quyển 3 — Bài 6": [
+"保护|bǎohù|bảo vệ","责任|zérèn|trách nhiệm","人人有责|rénrén yǒu zé|mỗi người đều có trách nhiệm","光|guāng|ánh sáng, chỉ (có)","饺子|jiǎozi|sủi cảo","塑料|sùliào|nhựa, chất dẻo","袋|dài|túi","盒子|hézi|hộp","包装|bāozhuāng|bao bì, đóng gói","垃圾|lājī|rác","环保|huánbǎo|bảo vệ môi trường","办法|bànfǎ|cách, biện pháp","来得及|láidejí|kịp","骑|qí|cưỡi, đi (xe đạp, xe máy)","公共|gōnggòng|công cộng","扔|rēng|vứt, ném","污染|wūrǎn|ô nhiễm","郊区|jiāoqū|ngoại ô","减少|jiǎnshǎo|giảm bớt","市区|shìqū|nội thành","质量|zhìliàng|chất lượng","气候|qìhòu|khí hậu","暖|nuǎn|ấm","各|gè|các, mỗi","重视|zhòngshì|coi trọng","禁止|jìnzhǐ|cấm","游客|yóukè|du khách","过程|guòchéng|quá trình","徒步|túbù|đi bộ","家电|jiādiàn|đồ điện gia dụng","处理|chǔlǐ|xử lý","人民币|rénmínbì|nhân dân tệ","通过|tōngguò|thông qua, đi qua","植树|zhíshù|trồng cây","改善|gǎishàn|cải thiện"],
+ "Quyển 3 — Bài 7": [
+"研究生|yánjiūshēng|nghiên cứu sinh, học viên cao học","怪不得|guàibude|thảo nào","差点儿|chàdiǎnr|suýt nữa, gần như","学霸|xuébà|học bá, học sinh giỏi","哪里|nǎli|ở đâu, đâu có (khiêm tốn)","笔试|bǐshì|thi viết","合格|hégé|đạt tiêu chuẩn, đạt","面试|miànshì|phỏng vấn","研究|yánjiū|nghiên cứu","硕士|shuòshì|thạc sĩ","博士|bóshì|tiến sĩ","暂时|zànshí|tạm thời","国外|guówài|nước ngoài","实现|shíxiàn|thực hiện, trở thành hiện thực","梦想|mèngxiǎng|ước mơ","毕业|bìyè|tốt nghiệp","完成|wánchéng|hoàn thành","任务|rènwu|nhiệm vụ","份|fèn|phần, bản (lượng từ)","就业|jiùyè|có việc làm, tìm việc","竞争|jìngzhēng|cạnh tranh","语言|yǔyán|ngôn ngữ","能力|nénglì|năng lực","教育|jiàoyù|giáo dục","材料|cáiliào|tài liệu, vật liệu","收到|shōudào|nhận được","通知|tōngzhī|thông báo","办理|bànlǐ|làm (thủ tục)","签证|qiānzhèng|thị thực, visa","手续|shǒuxù|thủ tục","奖学金|jiǎngxuéjīn|học bổng","优秀|yōuxiù|xuất sắc"],
+ "Quyển 3 — Bài 8": [
+"提|tí|nhắc đến, nêu ra","夜晚|yèwǎn|ban đêm","凌晨|língchén|rạng sáng","傍晚|bàngwǎn|chiều tối","辛苦|xīnkǔ|vất vả","承担|chéngdān|đảm nhận, gánh vác","损失|sǔnshī|tổn thất, thiệt hại","分担|fēndān|san sẻ, chia sẻ gánh nặng","承认|chéngrèn|thừa nhận","不得不|bùdébù|đành phải, không thể không","职业|zhíyè|nghề nghiệp","轻|qīng|nhẹ","坏|huài|hỏng, xấu","千万|qiānwàn|nhất định, ngàn vạn lần","程度|chéngdù|mức độ","挣钱|zhèngqián|kiếm tiền","赚钱|zhuànqián|kiếm tiền","几乎|jīhū|hầu như","顾客|gùkè|khách hàng","工资|gōngzī|tiền lương","薪水|xīnshui|tiền lương","基本|jīběn|cơ bản","待遇|dàiyù|đãi ngộ","领|lǐng|nhận, lĩnh","节省|jiéshěng|tiết kiệm","省钱|shěngqián|tiết kiệm tiền","内|nèi|trong, bên trong","此|cǐ|này, đây","到底|dàodǐ|rốt cuộc","看法|kànfǎ|cách nhìn, quan điểm","秘书|mìshū|thư ký","秘密|mìmì|bí mật","原因|yuányīn|nguyên nhân","理由|lǐyóu|lý do","减轻|jiǎnqīng|giảm nhẹ","下降|xiàjiàng|giảm xuống","即使|jíshǐ|cho dù, dù cho","接受|jiēshòu|tiếp nhận, chấp nhận","付款|fùkuǎn|thanh toán","贷款|dàikuǎn|vay tiền, khoản vay","加|jiā|thêm, cộng","加油|jiāyóu|cố lên, đổ xăng"],
+ "Quyển 3 — Bài 9": [
+"烦|fán|phiền, bực","烦恼|fánnǎo|phiền muộn, lo phiền","麻烦|máfan|phiền phức, làm phiền","撞|zhuàng|đâm, va","修理|xiūlǐ|sửa chữa","本来|běnlái|vốn dĩ, ban đầu","一下子|yíxiàzi|một lúc, đột nhiên","态度|tàidù|thái độ","倒|dào|ngược lại, lại","道歉|dàoqiàn|xin lỗi","抱歉|bàoqiàn|xin lỗi","车位|chēwèi|chỗ đỗ xe","拼|pīn|ghép, liều","拼命|pīnmìng|liều mạng, hết sức","区|qū|khu, khu vực","不如|bùrú|không bằng","保险|bǎoxiǎn|bảo hiểm","医疗保险|yīliáo bǎoxiǎn|bảo hiểm y tế","意外保险|yìwài bǎoxiǎn|bảo hiểm tai nạn","发生|fāshēng|xảy ra, phát sinh","意外|yìwài|bất ngờ, tai nạn","车祸|chēhuò|tai nạn giao thông","状况|zhuàngkuàng|tình trạng","力气|lìqi|sức lực","讨厌|tǎoyàn|ghét, đáng ghét","打扰|dǎrǎo|làm phiền","如何|rúhé|như thế nào","克服|kèfú|khắc phục","忍不住|rěnbuzhù|không nhịn được","消息|xiāoxi|tin tức, tin nhắn"],
+ "Quyển 3 — Bài 10": [
+"谈|tán|nói chuyện, bàn","以来|yǐlái|kể từ","趁着|chènzhe|nhân lúc","礼仪|lǐyí|nghi lễ, phép lịch sự","正式|zhèngshì|chính thức","尊重|zūnzhòng|tôn trọng","重点|zhòngdiǎn|trọng điểm","凉|liáng|mát, lạnh","凉菜|liángcài|món nguội","主食|zhǔshí|món chính (cơm, mì)","对于|duìyú|đối với","汤|tāng|canh, súp","包括|bāokuò|bao gồm","开玩笑|kāi wánxiào|đùa, nói đùa","社交|shèjiāo|giao tiếp xã hội","场合|chǎnghé|dịp, hoàn cảnh","随便|suíbiàn|tùy ý, tùy tiện","勺子|sháozi|thìa, muỗng","餐具|cānjù|dụng cụ ăn uống","叉子|chāzi|nĩa","吸管|xīguǎn|ống hút","味道|wèidào|mùi vị","臭|chòu|thối, hôi","香|xiāng|thơm","闻|wén|ngửi","十分|shífēn|vô cùng, rất","动作|dòngzuò|động tác","碰|pèng|chạm, va","熟|shú|chín, quen","弄|nòng|làm, xử lý"],
+ "Quyển 3 — Bài 11": [
+"逛|guàng|dạo, đi chơi phố","降价|jiàngjià|giảm giá","广告|guǎnggào|quảng cáo","原价|yuánjià|giá gốc","顾客|gùkè|khách hàng","抽奖|chōujiǎng|rút thăm trúng thưởng","售货员|shòuhuòyuán|nhân viên bán hàng","购买|gòumǎi|mua","效果|xiàoguǒ|hiệu quả","强大|qiángdà|mạnh mẽ","品牌|pǐnpái|thương hiệu","简直|jiǎnzhí|quả thực, đơn giản là","凡是…都…|fánshì…dōu…|hễ là…đều…","怀疑|huáiyí|nghi ngờ","市场|shìchǎng|thị trường","主要|zhǔyào|chủ yếu","销售|xiāoshòu|bán hàng, tiêu thụ","散装|sǎnzhuāng|hàng bán lẻ, đóng rời","面对|miànduì|đối mặt","坚持|jiānchí|kiên trì","放弃|fàngqì|từ bỏ","改天|gǎitiān|hôm khác","只好|zhǐhǎo|đành phải","陈列|chénliè|trưng bày","西红柿|xīhóngshì|cà chua","蔬菜|shūcài|rau củ","入口|rùkǒu|lối vào","举例|jǔlì|lấy ví dụ","单身|dānshēn|độc thân","日用品|rìyòngpǐn|đồ dùng hằng ngày","食品|shípǐn|thực phẩm","化妆品|huàzhuāngpǐn|mỹ phẩm","产品|chǎnpǐn|sản phẩm","商品|shāngpǐn|hàng hóa","快递|kuàidì|chuyển phát nhanh","恐怕|kǒngpà|e rằng","躺|tǎng|nằm"],
+ "Quyển 3 — Bài 12": [
+"著名|zhùmíng|nổi tiếng, trứ danh","作家|zuòjiā|nhà văn","读者|dúzhě|độc giả","作者|zuòzhě|tác giả","作品|zuòpǐn|tác phẩm","文学|wénxué|văn học","翻译|fānyì|dịch, phiên dịch","同情|tóngqíng|đồng cảm, thương cảm","损失|sǔnshī|tổn thất, thiệt hại","既然|jìrán|đã vậy thì, một khi","互相|hùxiāng|lẫn nhau","复杂|fùzá|phức tạp","简单|jiǎndān|đơn giản","解释|jiěshì|giải thích","误会|wùhuì|hiểu lầm","古代|gǔdài|cổ đại","现代|xiàndài|hiện đại","当代|dāngdài|đương đại","背景|bèijǐng|bối cảnh","之一|zhīyī|một trong những","暑假|shǔjià|kỳ nghỉ hè","寒假|hánjià|kỳ nghỉ đông","能够|nénggòu|có thể, có khả năng","推荐|tuījiàn|giới thiệu, đề cử","曾|céng|từng, đã từng","于|yú|ở, tại, vào","害羞|hàixiū|xấu hổ, ngại ngùng","陌生人|mòshēngrén|người lạ","写作|xiězuò|viết văn, sáng tác","创作|chuàngzuò|sáng tác","遭到|zāodào|gặp phải, bị","批评|pīpíng|phê bình","出版|chūbǎn|xuất bản","出版社|chūbǎnshè|nhà xuất bản","回报|huíbào|báo đáp, đền đáp"],
+ "Quyển 3 — Bài 13": [
+"美丽|měilì|xinh đẹp","印象|yìnxiàng|ấn tượng","值得|zhíde|đáng, xứng đáng","无论|wúlùn|bất kể, dù","季节|jìjié|mùa","参观|cānguān|tham quan","失望|shīwàng|thất vọng","正好|zhènghǎo|vừa hay, đúng lúc","航班|hángbān|chuyến bay","接着|jiēzhe|tiếp theo, tiếp đó","熊猫|xióngmāo|gấu trúc","凉快|liángkuai|mát mẻ","厚|hòu|dày","愉快|yúkuài|vui vẻ","四川|Sìchuān|Tứ Xuyên","成都|Chéngdū|Thành Đô","仍然|réngrán|vẫn, vẫn còn","云|yún|mây","雪山|xuěshān|núi tuyết","森林|sēnlín|rừng","湖|hú|hồ","面|miàn|mặt, phía","透明|tòumíng|trong suốt","似的|shìde|giống như, dường như","地震|dìzhèn|động đất","破坏|pòhuài|phá hoại","景色|jǐngsè|cảnh sắc","伤心|shāngxīn|buồn","难过|nánguò|buồn","产生|chǎnshēng|nảy sinh, sản sinh","区别|qūbié|sự khác biệt, phân biệt"],
+ "Quyển 3 — Bài 14": [
+"家喻户晓|jiāyùhùxiǎo|ai ai cũng biết","名人|míngrén|người nổi tiếng","高考|gāokǎo|kỳ thi đại học","竟然|jìngrán|vậy mà, không ngờ","失败|shībài|thất bại","应聘|yìngpìn|ứng tuyển","老板|lǎobǎn|ông chủ","矮|ǎi|thấp, lùn","所|suǒ|nơi, chỗ, (trợ từ)","导游|dǎoyóu|hướng dẫn viên du lịch","互联网|hùliánwǎng|mạng Internet","辞职|cízhí|từ chức, nghỉ việc","成立|chénglì|thành lập","充分|chōngfèn|đầy đủ, đủ","市场|shìchǎng|thị trường","进入|jìnrù|tiến vào, bước vào","无|wú|không, không có","现金|xiànjīn|tiền mặt","时代|shídài|thời đại","曾经|céngjīng|đã từng","记者|jìzhě|nhà báo, phóng viên","吃惊|chījīng|kinh ngạc","答案|dá'àn|đáp án","忙碌|mánglù|bận rộn","奢侈|shēchǐ|xa xỉ","珍贵|zhēnguì|quý giá","任何|rènhé|bất kỳ","坚持|jiānchí|kiên trì","积极|jījí|tích cực"],
+ "Quyển 3 — Bài 15": [
+"从来|cónglái|từ trước đến nay","乱|luàn|lộn xộn, loạn","养成|yǎngchéng|hình thành (thói quen)","兼职|jiānzhí|làm thêm, kiêm nhiệm","健身|jiànshēn|tập thể hình","估计|gūjì|ước tính, đoán","提醒|tíxǐng|nhắc nhở","冷静|lěngjìng|bình tĩnh","账|zhàng|sổ sách, hóa đơn","零花钱|línghuāqián|tiền tiêu vặt","怎样|zěnyàng|thế nào","避免|bìmiǎn|tránh, tránh khỏi","列|liè|liệt kê","清单|qīngdān|danh sách","好处|hǎochu|lợi ích","冲动|chōngdòng|bốc đồng","消费|xiāofèi|tiêu dùng","管理|guǎnlǐ|quản lý","效率|xiàolǜ|hiệu suất","关注|guānzhù|quan tâm, chú ý","秒|miǎo|giây","空|kōng|trống, rỗng","熟悉|shúxī|quen thuộc, hiểu rõ","当地|dāngdì|địa phương, tại chỗ","快速|kuàisù|nhanh chóng","适应|shìyìng|thích ứng","必要|bìyào|cần thiết","理性|lǐxìng|lý tính, lý trí"]
+};
+/* ============================================ */
+const $=s=>document.querySelector(s),app=$('#app');
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function parse(list){const m=new Map();list.forEach(r=>{const p=r.split('|');if(p.length<3||!p[1]||!p[2])return;const k=p[0]+'|'+p[1];if(!m.has(k))m.set(k,{h:p[0],p:p[1],m:p[2].replace(/\s*\?$/,''),chk:/\?$/.test(p[2])})});return[...m.values()]}
+const lessonNames=Object.keys(LESSONS);let S={};
+
+function start(err=''){
+ app.innerHTML=`<h1>🌸 Ôn từ vựng tiếng Trung — Quyển 3</h1><p class="sub">Trắc nghiệm 4 đáp án</p>
+ <label>Họ và tên</label><input id="nm" placeholder="Nhập họ tên của em" maxlength="50" autocomplete="off">
+ <label>Bài học</label><select id="ls">${lessonNames.map(n=>`<option>${n}</option>`).join('')}</select>
+ <label>Chiều trắc nghiệm</label><div class="seg" id="sg"><button data-m="A" class="on">Hán → Nghĩa</button><button data-m="B">Nghĩa → Hán</button><button data-m="M">Kết hợp</button></div>
+ <div class="err" id="er">${err}</div><button class="btn" id="go">Bắt đầu</button>`;
+ let mode='A';
+ document.querySelectorAll('#sg button').forEach(b=>b.onclick=()=>{mode=b.dataset.m;document.querySelectorAll('#sg button').forEach(x=>x.classList.toggle('on',x===b))});
+ $('#go').onclick=()=>{
+  const name=$('#nm').value.trim().replace(/\s+/g,' ');
+  if(name.length<2||!/\p{L}/u.test(name))return $('#er').textContent='Vui lòng nhập họ tên hợp lệ.';
+  const ln=$('#ls').value,words=parse(LESSONS[ln]);
+  if(new Set(words.map(w=>w.m)).size<4||words.length<4)return $('#er').textContent='Bài này chưa đủ dữ liệu để tạo câu hỏi (cần ít nhất 4 từ khác nhau).';
+  S={name,ln,mode,words,total:words.length,queue:shuffle(words),i:0,round:0,wrong:new Map(),next:[],t0:Date.now(),code:Math.random().toString(36).slice(2,8).toUpperCase()};
+  ask();
+ };
+}
+function ask(){
+ const w=S.queue[S.i],dir=S.mode==='M'?(Math.random()<.5?'A':'B'):S.mode;
+ const seen=new Set([w.m]),ds=[];
+ const cand=shuffle(S.words).filter(x=>x.h!==w.h).sort((a,b)=>Math.abs(a.h.length-w.h.length)-Math.abs(b.h.length-w.h.length)); /* ưu tiên đáp án nhiễu cùng số âm tiết (số chữ Hán) với từ hỏi */
+ for(const x of cand){if(!seen.has(x.m)){seen.add(x.m);ds.push(x);if(ds.length==3)break}}
+ const opts=shuffle([w,...ds]);S.cur={w,done:false};
+ const lab=x=>dir==='A'?`<span>${esc(x.p)} — ${esc(x.m)}</span>`:`<span><span class="h">${esc(x.h)}</span>${esc(x.p)}</span>`;
+ const prog=S.round?`Ôn lại ${S.i+1}/${S.queue.length}`:`${S.i+1}/${S.queue.length}`;
+ app.innerHTML=`<div class="top"><span class="pill g">${S.round?'🔁 Ôn lại':'✦ Làm bài'}</span><span class="pill">${esc(S.ln.split('— ')[1])}</span><span class="pill">${prog}</span></div>
+ <div class="hero"><small>${S.round?'TỪ CẦN ÔN':'TỪ MỚI'}</small>${dir==='A'?`<div class="big">${esc(w.h)}</div>`:`<div class="vi">${esc(w.m)}</div>`}</div>
+ <div id="os">${opts.map((o,k)=>`<button class="opt" data-k="${k}">${lab(o)}<i class="ic"></i></button>`).join('')}</div><div id="fb"></div>
+ <button class="btn" id="nx" disabled>Tiếp tục →</button>`;
+ document.querySelectorAll('.opt').forEach((b,k)=>b.onclick=()=>pick(k,opts,dir));
+}
+function pick(k,opts,dir){
+ if(S.cur.done)return;S.cur.done=true;const w=S.cur.w,right=opts[k]===w;
+ document.querySelectorAll('.opt').forEach((b,j)=>{b.disabled=true;if(opts[j]===w){b.classList.add('ok');b.querySelector('.ic').textContent='✓'}else if(j===k){b.classList.add('bad');b.querySelector('.ic').textContent='✕'}});
+ const full=`${w.h} — ${w.p} — ${w.m}`;
+ $('#fb').innerHTML=`<div class="fb ${right?'ok':'bad'}">${right?'✓ Chính xác!':'✕ Chưa đúng'}<span>Đáp án đúng: ${esc(full)}</span></div>`;
+ if(!right){if(S.round===0)S.wrong.set(w.h+w.p,w);S.next.push(w)}
+ const nx=$('#nx');nx.disabled=false;nx.onclick=advance;
+}
+function advance(){
+ S.i++;
+ if(S.i>=S.queue.length){
+  if(S.next.length){S.queue=shuffle(S.next);S.next=[];S.i=0;S.round++}else return finish();
+ }
+ ask();
+}
+function finish(){
+ const sec=Math.round((Date.now()-S.t0)/1000),n=S.wrong.size,d=new Date(),p=x=>String(x).padStart(2,'0');
+ const ds=`${p(d.getHours())}:${p(d.getMinutes())} — ${p(d.getDate())}/${p(d.getMonth()+1)}/${d.getFullYear()}`;
+ app.innerHTML=`<div class="res"><h1>🎉 CHÚC MỪNG BẠN ĐÃ HOÀN THÀNH BÀI ÔN TỪ VỰNG!</h1>
+ <div class="row"><span>Họ tên</span><b>${esc(S.name)}</b></div><div class="row"><span>Bài</span><b>${esc(S.ln)}</b></div>
+ <div class="row"><span>Chiều</span><b>${{A:'Hán → Nghĩa',B:'Nghĩa → Hán',M:'Kết hợp'}[S.mode]}</b></div>
+ <div class="row"><span>Tổng số từ</span><b>${S.total}</b></div>
+ <div class="row"><span>Đã nhớ ngay</span><b style="color:#0f9d6b">${S.total-n}/${S.total} từ</b></div>
+ <div class="row"><span>Cần ôn thêm</span><b style="color:#e11d48">${n}/${S.total} từ</b></div>
+ <div class="row"><span>Thời gian</span><b>${p(sec/60|0)} phút ${p(sec%60)} giây</b></div>
+ <div class="row"><span>Hoàn thành lúc</span><b>${ds}</b></div><div class="row"><span>Mã lượt làm bài</span><b>${S.code}</b></div>
+ <div class="msg">${n?'Bạn đã trả lời đúng toàn bộ các từ cần ôn lại. Hãy tiếp tục luyện tập để ghi nhớ từ vựng tốt hơn!':'Tuyệt vời! Bạn nhớ đúng tất cả các từ ngay lần đầu!'}</div>
+ ${n?'<button class="btn s" id="vw">Xem các từ cần ôn</button><div id="rv"></div>':''}
+ <button class="btn s" id="again">Làm lượt mới</button></div>`;
+ const v=$('#vw');if(v)v.onclick=()=>{$('#rv').innerHTML='<div class="rv">'+[...S.wrong.values()].map(w=>`<div>${esc(w.h)} — ${esc(w.p)} — ${esc(w.m)}</div>`).join('')+'</div>';v.remove()};
+ $('#again').onclick=()=>start();
+}
+start();
+</script></body></html>
