@@ -24,7 +24,7 @@
   const fill = (sel, items, e, t) => $(sel).innerHTML = items.length ? items.map(i => card(i)).join("") : soon(e, t);
   fill("#games", G, "🎈", "Trò chơi đang được chuẩn bị.<br>Sẽ xuất hiện ở đây khi sẵn sàng.");
   fill("#articles", A, "📖", "Góc kiến thức đang được chuẩn bị.<br>Bài viết sẽ xuất hiện ở đây khi sẵn sàng.");
-  fill("#docs", D, "📄", "Tài liệu đang được chuẩn bị.<br>Sẽ xuất hiện ở đây khi sẵn sàng.");
+  fill("#docs", D, "📄", "Mục này sẽ dùng để bổ sung đề thi HSK, sách giáo trình và tài liệu học tiếng Trung.<br>Sẽ xuất hiện ở đây khi sẵn sàng.");
 
   /* Ô chọn nhanh 4 mục */
   $("#quick").innerHTML = [["bai-hoc","📚","Bài học",L.length,"bài"],["tro-choi","🎮","Trò chơi",G.length,"trò chơi"],["goc-kien-thuc","💡","Góc kiến thức",A.length,"bài viết"],["tai-lieu","📄","Tài liệu",D.length,"tài liệu"]]
