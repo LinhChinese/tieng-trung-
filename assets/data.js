@@ -29,7 +29,10 @@ const BOOKS = [
 /* 3) Trò chơi — mỗi trò chơi một dòng. Chỉ thêm khi file đã có trong repository.
    Ví dụ (mẫu ở dưới là trò chơi đã có): { name: "Tên trò chơi", desc: "Mô tả ngắn.", emoji: "🎮", href: "thu-muc-tro-choi/" }, */
 const GAMES = [
-  { name: "Mưa Từ Vựng HSK", desc: "Đọc nghĩa đang rơi, gõ pinyin để bắn hạ từ. Chọn cấp HSK 1 đến 4.", emoji: "🌧️", href: "mua_tu_vung/" }
+  { name: "Mưa Từ Vựng HSK", desc: "Đọc nghĩa đang rơi, gõ pinyin để bắn hạ từ. Chọn cấp HSK 1 đến 4.", emoji: "🌧️", href: "mua_tu_vung/" },
+  { name: "Ôn từ vựng tiếng Trung — Quyển 1", desc: "Ôn theo bài với 3 hình thức: Flashcard, Ghép thẻ, Trắc nghiệm. Chọn Quyển 1 trong trang.", emoji: "📝", href: "on-tu-vung/" },
+  { name: "Ôn từ vựng tiếng Trung — Quyển 2", desc: "Ôn theo bài với 3 hình thức: Flashcard, Ghép thẻ, Trắc nghiệm. Chọn Quyển 2 trong trang.", emoji: "📝", href: "on-tu-vung/" },
+  { name: "Ôn từ vựng tiếng Trung — Quyển 3", desc: "Ôn theo bài với 3 hình thức: Flashcard, Ghép thẻ, Trắc nghiệm. Chọn Quyển 3 trong trang.", emoji: "📝", href: "on-tu-vung/" }
 ];
 
 /* 4) Góc kiến thức — bài viết kiến thức. Mỗi bài một dòng, ví dụ:
@@ -37,9 +40,6 @@ const GAMES = [
 const ARTICLES = [
 ];
 
-/* 5) Tài liệu — tài liệu từ vựng và công cụ ôn tập. Mỗi tài liệu một dòng. */
+/* 5) Tài liệu — đề thi HSK, sách giáo trình và tài liệu học tiếng Trung. Mỗi tài liệu một dòng. */
 const DOCS = [
-  { name: "Ôn từ vựng tiếng Trung — Quyển 1", desc: "Ôn theo bài với 3 chế độ: Hán → Nghĩa, Nghĩa → Hán, Kết hợp.", emoji: "📝", href: "on-tu-vung/Q1/" },
-  { name: "Ôn từ vựng tiếng Trung — Quyển 2", desc: "Ôn theo bài với 3 chế độ: Hán → Nghĩa, Nghĩa → Hán, Kết hợp.", emoji: "📝", href: "on-tu-vung/Q2/" },
-  { name: "Ôn từ vựng tiếng Trung — Quyển 3", desc: "Ôn theo bài với 3 chế độ: Hán → Nghĩa, Nghĩa → Hán, Kết hợp.", emoji: "📝", href: "on-tu-vung/Q3/" }
 ];
