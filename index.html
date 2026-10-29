@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Học tiếng Trung</title>
+<meta name="description" content="Thư viện tài liệu tiếng Trung: bài học, trò chơi, góc kiến thức, tài liệu từ vựng.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&family=Noto+Serif+SC:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body id="top">
+<header>
+  <nav aria-label="Điều hướng chính">
+    <a class="brand" href="#top"><span class="logo han" data-site="logo"></span><span data-site="name"></span> <span class="han" data-site="hanzi"></span></a>
+    <div class="links">
+      <a href="#bai-hoc">Bài học</a><a href="#tro-choi">Trò chơi</a><a href="#goc-kien-thuc">Góc kiến thức</a><a href="#tai-lieu">Tài liệu</a>
+    </div>
+  </nav>
+</header>
+<main>
+<div class="hero">
+  <span class="bub han b1" aria-hidden="true">学</span><span class="bub han b2" aria-hidden="true">好</span>
+  <span class="bub han b3" aria-hidden="true">中</span><span class="bub han b4" aria-hidden="true">文</span>
+  <p class="hz han" data-site="hanzi"></p>
+  <h1 data-site="name"></h1>
+  <p class="sl" data-site="slogan"></p>
+  <input id="gsearch" class="hsearch" type="search" placeholder="🔍 Tìm bài học, tài liệu…" aria-label="Tìm trong toàn bộ website">
+</div>
+
+<div id="results" class="wrap" hidden>
+  <section><h2>Kết quả tìm kiếm</h2><div id="rcount" aria-live="polite"></div><div class="grid" id="rlist"></div>
+  <div id="rempty" hidden>Không tìm thấy nội dung phù hợp 🔍<br>Thử từ khóa khác, ví dụ số bài hoặc “từ vựng”.</div></section>
+</div>
+
+<div id="home">
+<div class="wrap"><div class="tiles" id="quick" aria-label="Các mục chính"></div></div>
+
+<section id="bai-hoc"><div class="wrap">
+  <h2>Bài học <small>Chọn quyển rồi chọn bài bạn muốn học</small></h2>
+  <div class="tools"><div id="chips" style="display:flex;gap:8px;flex-wrap:wrap"></div></div>
+  <div id="count" aria-live="polite"></div>
+  <div id="lessons"></div>
+</div></section>
+
+<section id="tro-choi" class="alt"><div class="wrap">
+  <h2>Trò chơi <small>Vừa chơi vừa nhớ từ</small></h2><div class="grid" id="games"></div>
+</div></section>
+
+<section id="goc-kien-thuc"><div class="wrap">
+  <h2>Góc kiến thức <small>Bài viết giúp hiểu sâu hơn</small></h2><div class="grid" id="articles"></div>
+</div></section>
+
+<section id="tai-lieu" class="alt"><div class="wrap">
+  <h2>Tài liệu <small>Từ vựng và công cụ ôn tập</small></h2><div class="grid" id="docs"></div>
+</div></section>
+
+<section id="gioi-thieu"><div class="wrap">
+  <h2>Giới thiệu <small>Cách sử dụng website</small></h2>
+  <div id="about-text"></div>
+</div></section>
+</div>
+</main>
+<footer><span data-site="name"></span> · <span class="han" data-site="hanzi"></span><small data-site="footer"></small></footer>
+<script src="assets/data.js"></script>
+<script src="assets/main.js"></script>
+</body>
+</html>
